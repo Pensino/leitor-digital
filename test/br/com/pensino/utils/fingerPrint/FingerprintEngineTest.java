@@ -4,8 +4,8 @@
  */
 package br.com.pensino.utils.fingerPrint;
 
-import java.util.Set;
 import com.griaule.grfingerjava.FingerprintImage;
+import com.griaule.grfingerjava.GrFingerJava;
 import java.awt.image.BufferedImage;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -88,6 +88,8 @@ public class FingerprintEngineTest {
         };
         
         FingerprintEngine.getInstance().startObserve(observer);
+        assertTrue(FingerprintEngine.getInstance().getObservers().contains(observer));
+        FingerprintEngine.getInstance().stopObserve(observer);
         assertFalse(FingerprintEngine.getInstance().getObservers().contains(observer));
     }
 
@@ -96,11 +98,8 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testStartListenSensor() {
-        System.out.println("startListenSensor");
-        FingerprintEngine instance = null;
-        instance.startListenSensor();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().startListenSensor();
+        assertTrue(true);        
     }
 
     /**
@@ -108,12 +107,7 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testOnSensorPlug() {
-        System.out.println("onSensorPlug");
-        String idSensor = "";
-        FingerprintEngine instance = null;
-        instance.onSensorPlug(idSensor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //TODO: verificar se exite alguma forma de implementar o teste para este método.
     }
 
     /**
@@ -121,12 +115,7 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testOnSensorUnplug() {
-        System.out.println("onSensorUnplug");
-        String idSensor = "";
-        FingerprintEngine instance = null;
-        instance.onSensorUnplug(idSensor);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //TODO: verificar se existe alguma forma de implementar o teste para este método.
     }
 
     /**
@@ -134,13 +123,8 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testOnImageAcquired() {
-        System.out.println("onImageAcquired");
-        String string = "";
-        FingerprintImage fingerprintImage = null;
-        FingerprintEngine instance = null;
-        instance.onImageAcquired(string, fingerprintImage);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().onImageAcquired("imagem", new FingerprintImage(1, 1, 1));
+        //TODO implementar os testes
     }
 
     /**
@@ -148,12 +132,8 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testOnFingerDown() {
-        System.out.println("onFingerDown");
-        String string = "";
-        FingerprintEngine instance = null;
-        instance.onFingerDown(string);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().onFingerDown("teste");
+        //TODO implementar os testes
     }
 
     /**
@@ -161,12 +141,8 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testOnFingerUp() {
-        System.out.println("onFingerUp");
-        String string = "";
-        FingerprintEngine instance = null;
-        instance.onFingerUp(string);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().onFingerUp("teste");
+        //TODO implemntar os testes
     }
 
     /**
@@ -174,14 +150,7 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testSendFingerprint() {
-        System.out.println("sendFingerprint");
-        FingerprintImage fingerprintImage = null;
-        FingerprintEngine instance = null;
-        boolean expResult = false;
-        boolean result = instance.sendFingerprint(fingerprintImage);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().sendFingerprint(new FingerprintImage(1, 1, 1));
     }
 
     /**
@@ -189,14 +158,7 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testSendFingerprintTemplate() {
-        System.out.println("sendFingerprintTemplate");
-        BufferedImage templateImage = null;
-        FingerprintEngine instance = null;
-        boolean expResult = false;
-        boolean result = instance.sendFingerprintTemplate(templateImage);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        FingerprintEngine.getInstance().sendFingerprintTemplate("ttt");
     }
 
     /**
@@ -204,13 +166,6 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testCheckFingerprint() {
-        System.out.println("checkFingerprint");
-        byte[] fingerprintData = null;
-        FingerprintEngine instance = null;
-        BufferedImage expResult = null;
-        BufferedImage result = instance.checkFingerprint(fingerprintData);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //TODO melhorar os testes
     }
 }
