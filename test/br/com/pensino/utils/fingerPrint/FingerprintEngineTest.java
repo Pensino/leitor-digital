@@ -158,7 +158,7 @@ public class FingerprintEngineTest {
      */
     @Test
     public void testSendFingerprintTemplate() {
-        FingerprintEngine.getInstance().sendFingerprintTemplate("ttt");
+        FingerprintEngine.getInstance().sendFingerprintTemplate(null);
     }
 
     /**
