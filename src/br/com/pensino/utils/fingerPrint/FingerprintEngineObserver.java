@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
  *
  * @author emiliowl
  */
-interface FingerprintEngineObserver {
+public interface FingerprintEngineObserver {
     
     boolean notifyImageAcquired(FingerprintImage fingerprintImage);
     boolean notifyTemplateExtracted(BufferedImage templateImage);

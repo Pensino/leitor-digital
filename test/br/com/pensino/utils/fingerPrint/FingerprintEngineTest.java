@@ -5,7 +5,6 @@
 package br.com.pensino.utils.fingerPrint;
 
 import com.griaule.grfingerjava.FingerprintImage;
-import com.griaule.grfingerjava.GrFingerJava;
 import java.awt.image.BufferedImage;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -167,5 +166,13 @@ public class FingerprintEngineTest {
     @Test
     public void testCheckFingerprint() {
         //TODO melhorar os testes
+    }
+    
+    /**
+     * Test of extract method, of class FingerprintEngine
+     */
+    @Test
+    public void testExtract() {
+        // TODO: implementar teste
     }
 }

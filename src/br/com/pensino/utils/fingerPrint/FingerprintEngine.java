@@ -35,12 +35,13 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
     private FingerprintImage fingerprintImage = null;
     /** O template da última imagem de impressao digital capturada */
     public Template template;
+    // lista de observers desta classe
+    private Set<FingerprintEngineObserver> fingerPrintEngineObservers = new HashSet<FingerprintEngineObserver>();
 
     private FingerprintEngine() {
         super();
         startListenSensor();
     }
-    private Set<FingerprintEngineObserver> fingerPrintEngineObservers = new HashSet<FingerprintEngineObserver>();
 
     public static FingerprintEngine getInstance() {
         if (instance == null) {
@@ -48,11 +49,11 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
         return instance;
     }
-    
+
     public Set<FingerprintEngineObserver> getObservers() {
         return fingerPrintEngineObservers;
     }
-    
+
     public boolean startObserve(FingerprintEngineObserver observer) {
         return fingerPrintEngineObservers.add(observer);
     }
@@ -60,7 +61,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
     public boolean stopObserve(FingerprintEngineObserver observer) {
         return fingerPrintEngineObservers.remove(observer);
     }
-    
+
     /**
      * Inicializa o Fingerprint SDK e habilita a captura de impressoes.
      */
@@ -72,7 +73,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         } catch (Exception e) {
             //Se ocorrer um erro, encerra a aplicacao.
             e.printStackTrace();
-            System.exit(1);
+            //System.exit(1);
         }
     }
 
@@ -128,13 +129,29 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
     }
     
     /**
+     * Extrai a planta da imagem da impressao atual.
+     */
+    public void extract() {
+
+        try {
+            //Extrai a planta da imagem.
+            template = fingerprintSDK.extract(fingerprintImage);
+            //Mostra a planta na imagem
+            sendFingerprintTemplate(GrFingerJava.getBiometricImage(template, fingerprintImage));
+        } catch (GrFingerJavaException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
      *
      * @param pessoa
      * verifica se uma impressao digital e a mesma de um usuário especifico na base de dados
      */
     public BufferedImage checkFingerprint(byte[] fingerprintData) {
         try {
-            
+
             //Obtem a planta correspondente a pessoa indicada
             Template referenceTemplate = new Template(fingerprintData);
 
@@ -153,7 +170,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
         return null;
     }
-    
+
     /*
      * Estabelece o diretorio onde ficam as bibliotecas nativas do SDK da Griaule
      */
