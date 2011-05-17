@@ -4,21 +4,29 @@
  */
 
 /*
- * leitoDigital.java
+ * LeitorDigital.java
  *
  * Created on 06/05/2011, 07:39:56
  */
 package br.com.pensino.digital.ui;
 
+import br.com.pensino.ui.panel.FingerprintPanel;
+import br.com.pensino.utils.fingerPrint.FingerprintEngine;
+
 /**
  *
  * @author emerson
  */
-public class leitoDigital extends javax.swing.JFrame {
+public class LeitorDigital extends javax.swing.JFrame {
     
-    /** Creates new form leitoDigital */
-    public leitoDigital() {
+    private FingerprintPanel fingerprintPanel = new FingerprintPanel();
+    private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
+    
+    /** Creates new form LeitorDigital */
+    public LeitorDigital() {
         initComponents();
+        painelImpressaoDigital.add(fingerprintPanel);
+        fingerprintEngine.startObserve(fingerprintPanel);
     }
 
     /** This method is called from within the constructor to
@@ -62,7 +70,7 @@ public class leitoDigital extends javax.swing.JFrame {
         painelIdentificarPessoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         painelFotoPessoal.setBackground(new java.awt.Color(255, 255, 255));
-        painelFotoPessoal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Pessoal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 153, 102))); // NOI18N
+        painelFotoPessoal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Pessoal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 153, 102))); // NOI18N
 
         javax.swing.GroupLayout painelFotoPessoalLayout = new javax.swing.GroupLayout(painelFotoPessoal);
         painelFotoPessoal.setLayout(painelFotoPessoalLayout);
@@ -78,20 +86,9 @@ public class leitoDigital extends javax.swing.JFrame {
         painelIdentificarPessoa.add(painelFotoPessoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
 
         painelImpressaoDigital.setBackground(new java.awt.Color(255, 255, 255));
-        painelImpressaoDigital.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Impressão Digital", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 153, 102))); // NOI18N
+        painelImpressaoDigital.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Impressão Digital", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 153, 102))); // NOI18N
         painelImpressaoDigital.setPreferredSize(new java.awt.Dimension(227, 278));
-
-        javax.swing.GroupLayout painelImpressaoDigitalLayout = new javax.swing.GroupLayout(painelImpressaoDigital);
-        painelImpressaoDigital.setLayout(painelImpressaoDigitalLayout);
-        painelImpressaoDigitalLayout.setHorizontalGroup(
-            painelImpressaoDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
-        );
-        painelImpressaoDigitalLayout.setVerticalGroup(
-            painelImpressaoDigitalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
-        );
-
+        painelImpressaoDigital.setLayout(new javax.swing.BoxLayout(painelImpressaoDigital, javax.swing.BoxLayout.LINE_AXIS));
         painelIdentificarPessoa.add(painelImpressaoDigital, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
         painelIdentificarPessoa.add(separador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 500, 10));
 
@@ -176,7 +173,7 @@ public class leitoDigital extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new leitoDigital().setVisible(true);
+                new LeitorDigital().setVisible(true);
             }
         });
     }

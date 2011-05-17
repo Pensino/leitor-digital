@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  * @author emiliowl
  */
 public class FingerprintEngineTest {
-    
+
     public FingerprintEngineTest() {
     }
 
@@ -29,11 +29,11 @@ public class FingerprintEngineTest {
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -62,8 +62,13 @@ public class FingerprintEngineTest {
             public boolean notifyTemplateExtracted(BufferedImage templateImage) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
+
+            @Override
+            public boolean showSimilarities(BufferedImage fingerprintImage) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
         };
-        
+
         FingerprintEngine.getInstance().startObserve(observer);
         assertTrue(FingerprintEngine.getInstance().getObservers().contains(observer));
     }
@@ -84,8 +89,13 @@ public class FingerprintEngineTest {
             public boolean notifyTemplateExtracted(BufferedImage templateImage) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
+
+            @Override
+            public boolean showSimilarities(BufferedImage fingerprintImage) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
         };
-        
+
         FingerprintEngine.getInstance().startObserve(observer);
         assertTrue(FingerprintEngine.getInstance().getObservers().contains(observer));
         FingerprintEngine.getInstance().stopObserve(observer);
@@ -98,7 +108,7 @@ public class FingerprintEngineTest {
     @Test
     public void testStartListenSensor() {
         FingerprintEngine.getInstance().startListenSensor();
-        assertTrue(true);        
+        assertTrue(true);
     }
 
     /**
@@ -167,7 +177,7 @@ public class FingerprintEngineTest {
     public void testCheckFingerprint() {
         //TODO melhorar os testes
     }
-    
+
     /**
      * Test of extract method, of class FingerprintEngine
      */

@@ -127,7 +127,14 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
         return true;
     }
-    
+
+    public boolean sendSimilarities(BufferedImage fingerprintImage) {
+        for (FingerprintEngineObserver fingerprintEngineObserver : fingerPrintEngineObservers) {
+            fingerprintEngineObserver.showSimilarities(fingerprintImage);
+        }
+        return true;
+    }
+
     /**
      * Extrai a planta da imagem da impressao atual.
      */
@@ -149,7 +156,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
      * @param pessoa
      * verifica se uma impressao digital e a mesma de um usuário especifico na base de dados
      */
-    public BufferedImage checkFingerprint(byte[] fingerprintData) {
+    public boolean checkFingerprint(byte[] fingerprintData) {
         try {
 
             //Obtem a planta correspondente a pessoa indicada
@@ -160,15 +167,13 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
 
             //Se correspondem, desenha o mapa de correspondencia e retorna true
             if (areSame) {
-                return GrFingerJava.getBiometricImage(template, fingerprintImage, fingerprintSDK);
-            } else {
-                //Se nao corresponder retorna false
-                return null;
+                sendSimilarities(GrFingerJava.getBiometricImage(template, fingerprintImage, fingerprintSDK));
             }
+            return areSame;
         } catch (GrFingerJavaException e) {
             e.printStackTrace();
+            return false;
         }
-        return null;
     }
 
     /*

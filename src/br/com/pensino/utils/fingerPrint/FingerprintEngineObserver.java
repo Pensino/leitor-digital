@@ -15,5 +15,6 @@ public interface FingerprintEngineObserver {
     
     boolean notifyImageAcquired(FingerprintImage fingerprintImage);
     boolean notifyTemplateExtracted(BufferedImage templateImage);
+    boolean showSimilarities(BufferedImage fingerprintImage);
     
 }
