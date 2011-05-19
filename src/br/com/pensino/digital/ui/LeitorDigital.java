@@ -10,23 +10,35 @@
  */
 package br.com.pensino.digital.ui;
 
-import br.com.pensino.ui.panel.FingerprintPanel;
-import br.com.pensino.utils.fingerPrint.FingerprintEngine;
+import br.com.pensino.ui.panel.MainPanel;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
 /**
  *
  * @author emerson
  */
 public class LeitorDigital extends javax.swing.JFrame {
-    
-    private FingerprintPanel fingerprintPanel = new FingerprintPanel();
-    private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
-    
+
     /** Creates new form LeitorDigital */
     public LeitorDigital() {
         initComponents();
-        painelImpressaoDigital.add(fingerprintPanel);
-        fingerprintEngine.startObserve(fingerprintPanel);
+        // apenas para testes
+        this.setContentPane(new JPanel() {
+
+            @Override
+            public void paintComponent(Graphics g) {
+                super.paintComponents(g);
+                Image imagem = new ImageIcon("leitor-digital-bg.PNG").getImage();
+                g.drawImage(imagem, 0, 0, this);
+            }
+        });
+        this.getContentPane().removeAll();
+        this.getContentPane().add(new MainPanel());
     }
 
     /** This method is called from within the constructor to
@@ -38,133 +50,16 @@ public class LeitorDigital extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelIdentificarPessoa = new javax.swing.JPanel();
-        painelFotoPessoal = new javax.swing.JPanel();
-        painelImpressaoDigital = new javax.swing.JPanel();
-        separador1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
-        separador2 = new javax.swing.JSeparator();
-        jLabel2 = new javax.swing.JLabel();
-        labenNomeInstituicao = new javax.swing.JLabel();
-        rotuloCodigo = new javax.swing.JLabel();
-        rotuloDisciplina = new javax.swing.JLabel();
-        rotuloAjuda = new javax.swing.JLabel();
-        separador3 = new javax.swing.JSeparator();
-        textoCodigo = new javax.swing.JTextField();
-        textoNome = new javax.swing.JTextField();
-        textoMensagem = new javax.swing.JTextField();
-        textoDisciplina = new javax.swing.JTextField();
-        rotuloNome = new javax.swing.JLabel();
-        rotuloEnderecoSite = new javax.swing.JLabel();
-        rotuloSobre = new javax.swing.JLabel();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pensino : Leitor Digital");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setName("framePrincipal"); // NOI18N
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        painelIdentificarPessoa.setBackground(new java.awt.Color(255, 255, 255));
-        painelIdentificarPessoa.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 102), 5));
-        painelIdentificarPessoa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        painelFotoPessoal.setBackground(new java.awt.Color(255, 255, 255));
-        painelFotoPessoal.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Foto Pessoal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 153, 102))); // NOI18N
-
-        javax.swing.GroupLayout painelFotoPessoalLayout = new javax.swing.GroupLayout(painelFotoPessoal);
-        painelFotoPessoal.setLayout(painelFotoPessoalLayout);
-        painelFotoPessoalLayout.setHorizontalGroup(
-            painelFotoPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 215, Short.MAX_VALUE)
-        );
-        painelFotoPessoalLayout.setVerticalGroup(
-            painelFotoPessoalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 251, Short.MAX_VALUE)
-        );
-
-        painelIdentificarPessoa.add(painelFotoPessoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
-
-        painelImpressaoDigital.setBackground(new java.awt.Color(255, 255, 255));
-        painelImpressaoDigital.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Impressão Digital", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 153, 102))); // NOI18N
-        painelImpressaoDigital.setPreferredSize(new java.awt.Dimension(227, 278));
-        painelImpressaoDigital.setLayout(new javax.swing.BoxLayout(painelImpressaoDigital, javax.swing.BoxLayout.LINE_AXIS));
-        painelIdentificarPessoa.add(painelImpressaoDigital, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, -1, -1));
-        painelIdentificarPessoa.add(separador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 500, 10));
-
-        jLabel1.setFont(new java.awt.Font("Baskerville Old Face", 1, 36));
-        jLabel1.setForeground(new java.awt.Color(255, 153, 102));
-        jLabel1.setText("p");
-        painelIdentificarPessoa.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
-        painelIdentificarPessoa.add(separador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 500, 10));
-
-        jLabel2.setFont(new java.awt.Font("Baskerville Old Face", 1, 36));
-        jLabel2.setText("ensino");
-        painelIdentificarPessoa.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, -1, -1));
-
-        labenNomeInstituicao.setFont(new java.awt.Font("Baskerville Old Face", 0, 18));
-        labenNomeInstituicao.setText("FATEC JUNDIAÍ");
-        painelIdentificarPessoa.add(labenNomeInstituicao, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
-
-        rotuloCodigo.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloCodigo.setText("Código");
-        painelIdentificarPessoa.add(rotuloCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 400, -1, -1));
-
-        rotuloDisciplina.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloDisciplina.setText("Disciplina");
-        painelIdentificarPessoa.add(rotuloDisciplina, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 480, -1, -1));
-
-        rotuloAjuda.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloAjuda.setText(" | Ajuda");
-        painelIdentificarPessoa.add(rotuloAjuda, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 550, -1, -1));
-        painelIdentificarPessoa.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 500, 10));
-
-        textoCodigo.setEditable(false);
-        textoCodigo.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-        textoCodigo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        textoCodigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textoCodigoActionPerformed(evt);
-            }
-        });
-        painelIdentificarPessoa.add(textoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 400, 367, -1));
-
-        textoNome.setEditable(false);
-        textoNome.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-        textoNome.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        painelIdentificarPessoa.add(textoNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 440, 367, -1));
-
-        textoMensagem.setEditable(false);
-        textoMensagem.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-        textoMensagem.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        painelIdentificarPessoa.add(textoMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 520, 480, -1));
-
-        textoDisciplina.setEditable(false);
-        textoDisciplina.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-        textoDisciplina.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 2, true));
-        painelIdentificarPessoa.add(textoDisciplina, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 367, -1));
-
-        rotuloNome.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloNome.setText("Nome");
-        painelIdentificarPessoa.add(rotuloNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 440, -1, -1));
-
-        rotuloEnderecoSite.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloEnderecoSite.setText("pensino.com.br");
-        painelIdentificarPessoa.add(rotuloEnderecoSite, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 550, -1, -1));
-
-        rotuloSobre.setFont(new java.awt.Font("Comic Sans MS", 1, 14));
-        rotuloSobre.setText(" | Sobre");
-        painelIdentificarPessoa.add(rotuloSobre, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 550, -1, -1));
-
-        getContentPane().add(painelIdentificarPessoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 580));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-526)/2, (screenSize.height-607)/2, 526, 607);
+        setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textoCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCodigoActionPerformed
-        //testim
-    }//GEN-LAST:event_textoCodigoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,24 +73,5 @@ public class LeitorDigital extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel labenNomeInstituicao;
-    private javax.swing.JPanel painelFotoPessoal;
-    private javax.swing.JPanel painelIdentificarPessoa;
-    private javax.swing.JPanel painelImpressaoDigital;
-    private javax.swing.JLabel rotuloAjuda;
-    private javax.swing.JLabel rotuloCodigo;
-    private javax.swing.JLabel rotuloDisciplina;
-    private javax.swing.JLabel rotuloEnderecoSite;
-    private javax.swing.JLabel rotuloNome;
-    private javax.swing.JLabel rotuloSobre;
-    private javax.swing.JSeparator separador1;
-    private javax.swing.JSeparator separador2;
-    private javax.swing.JSeparator separador3;
-    private javax.swing.JTextField textoCodigo;
-    private javax.swing.JTextField textoDisciplina;
-    private javax.swing.JTextField textoMensagem;
-    private javax.swing.JTextField textoNome;
     // End of variables declaration//GEN-END:variables
 }

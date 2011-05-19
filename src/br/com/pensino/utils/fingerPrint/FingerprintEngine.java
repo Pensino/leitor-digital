@@ -138,7 +138,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
     /**
      * Extrai a planta da imagem da impressao atual.
      */
-    public void extract() {
+    private void extract() {
 
         try {
             //Extrai a planta da imagem.

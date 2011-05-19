@@ -89,7 +89,6 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        //Se nao houver uma imagem para ser mostrada
         if (fingerprintImage != null) {
             //Calcula o tamanho e posicao da imagem para ser pintada
             //o tamanho eh ajustado para que ocupe todo o tamanho do painel
