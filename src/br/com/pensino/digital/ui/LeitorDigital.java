@@ -12,8 +12,6 @@ package br.com.pensino.digital.ui;
 
 import br.com.pensino.ui.panel.MainPanel;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -23,10 +21,13 @@ import javax.swing.JPanel;
  * @author emerson
  */
 public class LeitorDigital extends javax.swing.JFrame {
+    
+    private MainPanel mainPanel = new MainPanel();
 
     /** Creates new form LeitorDigital */
     public LeitorDigital() {
         initComponents();
+        
         // apenas para testes
         this.setContentPane(new JPanel() {
 
@@ -37,8 +38,22 @@ public class LeitorDigital extends javax.swing.JFrame {
                 g.drawImage(imagem, 0, 0, this);
             }
         });
-        this.getContentPane().removeAll();
-        this.getContentPane().add(new MainPanel());
+        java.awt.GridBagConstraints gridBagConstraints;
+        
+        getContentPane().setLayout(new java.awt.GridBagLayout());
+        mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        mainPanel.setMinimumSize(new java.awt.Dimension(500, 600));
+        mainPanel.setPreferredSize(new java.awt.Dimension(500, 600));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.ipadx = 100;
+        gridBagConstraints.ipady = 100;
+        gridBagConstraints.weightx = 100.0;
+        gridBagConstraints.weighty = 100.0;
+                
+        getContentPane().add(mainPanel, gridBagConstraints);
+
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
     }
 
     /** This method is called from within the constructor to
@@ -50,12 +65,17 @@ public class LeitorDigital extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        middleContainer = new javax.swing.JLayeredPane();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pensino : Leitor Digital");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setName("framePrincipal"); // NOI18N
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
+
+        middleContainer.setMinimumSize(new java.awt.Dimension(500, 300));
+        getContentPane().add(middleContainer, new java.awt.GridBagConstraints());
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
@@ -73,5 +93,6 @@ public class LeitorDigital extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane middleContainer;
     // End of variables declaration//GEN-END:variables
 }
