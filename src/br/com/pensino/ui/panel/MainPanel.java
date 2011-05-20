@@ -42,6 +42,9 @@ public class MainPanel extends JPanel {
         fingerprintContainer = new javax.swing.JLayeredPane();
         fingerprintContentPanel = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
 
         setToolTipText("");
         setMaximumSize(new java.awt.Dimension(500, 600));
@@ -85,11 +88,26 @@ public class MainPanel extends JPanel {
         jButton1.setText("adicionar");
         jButton1.setOpaque(true);
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
+
+        jTextField1.setText("jTextField1");
+        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        jTextField1.setNextFocusableComponent(jTextField2);
+        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 380, 40));
+
+        jTextField2.setText("jTextField2");
+        jTextField2.setNextFocusableComponent(jTextField3);
+        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 380, 40));
+
+        jTextField3.setText("jTextField3");
+        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, 380, 40));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane fingerprintContainer;
     private javax.swing.JPanel fingerprintContentPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JLayeredPane jLayeredPane3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

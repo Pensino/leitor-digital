@@ -42,8 +42,8 @@ public class LeitorDigital extends javax.swing.JFrame {
         
         getContentPane().setLayout(new java.awt.GridBagLayout());
         mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        mainPanel.setMinimumSize(new java.awt.Dimension(500, 600));
-        mainPanel.setPreferredSize(new java.awt.Dimension(500, 600));
+        mainPanel.setMinimumSize(new java.awt.Dimension(500, 730));
+        mainPanel.setPreferredSize(new java.awt.Dimension(500, 730));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 100;
@@ -70,6 +70,7 @@ public class LeitorDigital extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pensino : Leitor Digital");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(500, 730));
         setName("framePrincipal"); // NOI18N
         setResizable(false);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -78,7 +79,7 @@ public class LeitorDigital extends javax.swing.JFrame {
         getContentPane().add(middleContainer, new java.awt.GridBagConstraints());
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
+        setBounds((screenSize.width-610)/2, (screenSize.height-476)/2, 610, 476);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
