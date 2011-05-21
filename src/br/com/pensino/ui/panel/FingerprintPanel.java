@@ -60,7 +60,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public boolean notifyImageAcquired(FingerprintImage fingerprintImage) {
+    public boolean notifyImageAcquired(BufferedImage fingerprintImage) {
         this.fingerprintImage = fingerprintImage;
         repaint();
         return true;

@@ -4,7 +4,6 @@
  */
 package br.com.pensino.utils.fingerPrint;
 
-import com.griaule.grfingerjava.FingerprintImage;
 import java.awt.image.BufferedImage;
 
 /**
@@ -13,7 +12,7 @@ import java.awt.image.BufferedImage;
  */
 public interface FingerprintEngineObserver {
     
-    boolean notifyImageAcquired(FingerprintImage fingerprintImage);
+    boolean notifyImageAcquired(BufferedImage fingerprintImage);
     boolean notifyTemplateExtracted(BufferedImage templateImage);
     boolean showSimilarities(BufferedImage fingerprintImage);
     

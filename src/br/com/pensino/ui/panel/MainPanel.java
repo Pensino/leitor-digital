@@ -10,6 +10,7 @@
  */
 package br.com.pensino.ui.panel;
 
+import br.com.pensino.ui.components.AddButton;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import javax.swing.JPanel;
 
@@ -21,10 +22,12 @@ public class MainPanel extends JPanel {
     
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
+    private AddButton addButton = AddButton.getInstance();
 
     /** Creates new form MainPanel */
     public MainPanel() {
         initComponents();
+        this.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, -1, -1));
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintContentPanel.add(fingerprintPanel);
     }
@@ -41,10 +44,7 @@ public class MainPanel extends JPanel {
         jLayeredPane3 = new javax.swing.JLayeredPane();
         fingerprintContainer = new javax.swing.JLayeredPane();
         fingerprintContentPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
 
         setToolTipText("");
         setMaximumSize(new java.awt.Dimension(500, 600));
@@ -83,31 +83,12 @@ public class MainPanel extends JPanel {
         fingerprintContainer.add(fingerprintContentPanel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         add(fingerprintContainer, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 130, 250, 300));
-
-        jButton1.setMnemonic('a');
-        jButton1.setText("adicionar");
-        jButton1.setOpaque(true);
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, -1, -1));
-
-        jTextField1.setText("jTextField1");
-        jTextField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        jTextField1.setNextFocusableComponent(jTextField2);
-        add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 450, 380, 40));
-
-        jTextField2.setText("jTextField2");
-        jTextField2.setNextFocusableComponent(jTextField3);
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 500, 380, 40));
-
-        jTextField3.setText("jTextField3");
-        add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 550, 380, 40));
+        add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 550, 140));
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLayeredPane fingerprintContainer;
     private javax.swing.JPanel fingerprintContentPanel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,7 +54,7 @@ public class FingerprintEngineTest {
         FingerprintEngineObserver observer = new FingerprintEngineObserver() {
 
             @Override
-            public boolean notifyImageAcquired(FingerprintImage fingerprintImage) {
+            public boolean notifyImageAcquired(BufferedImage fingerprintImage) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
@@ -81,7 +81,7 @@ public class FingerprintEngineTest {
         FingerprintEngineObserver observer = new FingerprintEngineObserver() {
 
             @Override
-            public boolean notifyImageAcquired(FingerprintImage fingerprintImage) {
+            public boolean notifyImageAcquired(BufferedImage fingerprintImage) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
 
