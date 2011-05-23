@@ -11,7 +11,6 @@
 package br.com.pensino.ui.panel;
 
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
-import com.griaule.grfingerjava.FingerprintImage;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
@@ -33,7 +32,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
         this.setBorder(new CompoundBorder(
                 new EmptyBorder(2, 2, 2, 2),
             new BevelBorder(BevelBorder.LOWERED)));
-        this.setSize(220, 270);
+        this.setSize(230, 280);
     }
 
     /** This method is called from within the constructor to

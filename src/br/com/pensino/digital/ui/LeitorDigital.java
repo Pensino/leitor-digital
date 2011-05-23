@@ -10,6 +10,7 @@
  */
 package br.com.pensino.digital.ui;
 
+import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.ui.panel.MainPanel;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -49,9 +50,9 @@ public class LeitorDigital extends javax.swing.JFrame {
         gridBagConstraints.ipady = 100;
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 100.0;
-                
+        
         getContentPane().add(mainPanel, gridBagConstraints);
-
+        
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
     }

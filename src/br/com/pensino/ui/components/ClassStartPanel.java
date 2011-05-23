@@ -10,6 +10,8 @@
  */
 package br.com.pensino.ui.components;
 
+import java.awt.GridLayout;
+
 /**
  *
  * @author emiliowl
@@ -19,6 +21,8 @@ public class ClassStartPanel extends javax.swing.JPanel {
     /** Creates new form ClassStartPanel */
     public ClassStartPanel() {
         initComponents();
+        this.setLayout(new GridLayout(3, 2));
+        
     }
 
     /** This method is called from within the constructor to
@@ -30,21 +34,43 @@ public class ClassStartPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setMaximumSize(new java.awt.Dimension(550, 140));
-        setMinimumSize(new java.awt.Dimension(550, 140));
-        setPreferredSize(new java.awt.Dimension(550, 140));
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setMaximumSize(new java.awt.Dimension(550, 170));
+        setMinimumSize(new java.awt.Dimension(550, 170));
+        setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(550, 170));
+        setLayout(new java.awt.GridLayout());
+
+        jLabel1.setText("Código:");
+        add(jLabel1);
+
+        jLabel2.setText("-");
+        add(jLabel2);
+
+        jLabel3.setText("Nome:");
+        add(jLabel3);
+
+        jLabel4.setText("-");
+        add(jLabel4);
+
+        jLabel5.setText("Disciplina:");
+        add(jLabel5);
+
+        jLabel6.setText("-");
+        add(jLabel6);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     // End of variables declaration//GEN-END:variables
 }

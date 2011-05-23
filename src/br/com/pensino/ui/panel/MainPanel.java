@@ -11,7 +11,10 @@
 package br.com.pensino.ui.panel;
 
 import br.com.pensino.ui.components.AddButton;
+import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +26,8 @@ public class MainPanel extends JPanel {
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private AddButton addButton = AddButton.getInstance();
+    private JPanel middlePanel = null;
+    private JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
 
     /** Creates new form MainPanel */
     public MainPanel() {
@@ -30,6 +35,9 @@ public class MainPanel extends JPanel {
         this.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, -1, -1));
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintContentPanel.add(fingerprintPanel);
+        middlePanel = new ClassStartPanel();
+        this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
+        this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 650, -1, -1));
     }
 
     /** This method is called from within the constructor to
