@@ -31,7 +31,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
         initComponents();
         this.setBorder(new CompoundBorder(
                 new EmptyBorder(2, 2, 2, 2),
-            new BevelBorder(BevelBorder.LOWERED)));
+                new BevelBorder(BevelBorder.LOWERED)));
         this.setSize(230, 280);
     }
 
@@ -71,7 +71,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
         repaint();
         return true;
     }
-    
+
     /** Método utilizado para mostrar as semelhancas encontradas
      *
      */
@@ -101,5 +101,13 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
             g.drawImage(fingerprintImage, transX, transY, width, height, null);
         }
 
+    }
+
+    @Override
+    public void notifyFingerDown() {
+    }
+
+    @Override
+    public void notifyFingerUp() {
     }
 }

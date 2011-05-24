@@ -67,6 +67,16 @@ public class FingerprintEngineTest {
             public boolean showSimilarities(BufferedImage fingerprintImage) {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
+
+            @Override
+            public void notifyFingerDown() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void notifyFingerUp() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
         };
 
         FingerprintEngine.getInstance().startObserve(observer);
@@ -92,6 +102,16 @@ public class FingerprintEngineTest {
 
             @Override
             public boolean showSimilarities(BufferedImage fingerprintImage) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void notifyFingerDown() {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+
+            @Override
+            public void notifyFingerUp() {
                 throw new UnsupportedOperationException("Not supported yet.");
             }
         };

@@ -13,31 +13,52 @@ package br.com.pensino.ui.panel;
 import br.com.pensino.ui.components.AddButton;
 import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
+import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
 /**
  *
  * @author emiliowl
  */
-public class MainPanel extends JPanel {
+public class MainPanel extends JPanel implements FingerprintEngineObserver {
     
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private AddButton addButton = AddButton.getInstance();
     private JPanel middlePanel = null;
     private JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
+    private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
     public MainPanel() {
         initComponents();
         this.add(addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 40, -1, -1));
         fingerprintEngine.startObserve(fingerprintPanel);
+        fingerprintEngine.startObserve(this);
         fingerprintContentPanel.add(fingerprintPanel);
         middlePanel = new ClassStartPanel();
         this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, -1));
         this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 650, -1, -1));
+        this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, -1, -1));
+        progressBar.setVisible(false);
+        progressBar.setMinimum(0);
+        progressBar.setMaximum(100);
+    }
+    
+    public static void startProgress() {      
+        progressBar.setVisible(true);
+    }
+    
+    public static void setProgressStatus(int status) {
+        progressBar.setValue(status);
+        if(status >= 100) {
+            progressBar.setValue(0);
+            progressBar.setVisible(false);
+        }
     }
 
     /** This method is called from within the constructor to
@@ -99,4 +120,32 @@ public class MainPanel extends JPanel {
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JLayeredPane jLayeredPane3;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public boolean notifyImageAcquired(BufferedImage fingerprintImage) {
+        MainPanel.setProgressStatus(75);
+        return true;
+    }
+
+    @Override
+    public boolean notifyTemplateExtracted(BufferedImage templateImage) {
+        MainPanel.setProgressStatus(100);
+        return true;
+    }
+
+    @Override
+    public boolean showSimilarities(BufferedImage fingerprintImage) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void notifyFingerDown() {
+        MainPanel.startProgress();
+        MainPanel.setProgressStatus(25);
+    }
+
+    @Override
+    public void notifyFingerUp() {
+        MainPanel.setProgressStatus(50);
+    }
 }

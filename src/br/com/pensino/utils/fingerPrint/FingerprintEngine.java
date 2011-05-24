@@ -77,6 +77,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
     }
 
+    @Override
     public void onSensorPlug(String idSensor) {
         try {
             GrFingerJava.startCapture(idSensor, this, this);
@@ -85,6 +86,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
     }
 
+    @Override
     public void onSensorUnplug(String idSensor) {
         try {
             GrFingerJava.stopCapture(idSensor);
@@ -93,6 +95,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
     }
 
+    @Override
     public void onImageAcquired(String string, FingerprintImage fingerprintImage) {
         this.fingerprintImage = fingerprintImage;
         sendFingerprint(fingerprintImage);
@@ -106,12 +109,18 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
         }
     }
 
+    @Override
     public void onFingerDown(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (FingerprintEngineObserver fingerprintEngineObserver : fingerPrintEngineObservers) {
+            fingerprintEngineObserver.notifyFingerDown();
+        }
     }
 
+    @Override
     public void onFingerUp(String string) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        for (FingerprintEngineObserver fingerprintEngineObserver : fingerPrintEngineObservers) {
+            fingerprintEngineObserver.notifyFingerUp();
+        }
     }
 
     public boolean sendFingerprint(FingerprintImage fingerprintImage) {

@@ -10,7 +10,6 @@
  */
 package br.com.pensino.digital.ui;
 
-import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.ui.panel.MainPanel;
 import java.awt.Graphics;
 import java.awt.Image;
