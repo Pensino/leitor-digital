@@ -11,24 +11,36 @@
 package br.com.pensino.digital.ui;
 
 import br.com.pensino.ui.panel.MainPanel;
+import br.com.pensino.ui.panel.RegisterPanel;
+import java.awt.Button;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import org.netbeans.lib.awtextra.AbsoluteConstraints;
+import org.netbeans.lib.awtextra.AbsoluteLayout;
 
 /**
  *
  * @author emerson
  */
 public class LeitorDigital extends javax.swing.JFrame {
-    
-    private MainPanel mainPanel = new MainPanel();
 
+    private static LeitorDigital instance = null;
+    private java.awt.GridBagConstraints gridBagConstraints;
+    private JPanel globalContainer = new JPanel();
+    private boolean addButton = true;
+    
     /** Creates new form LeitorDigital */
-    public LeitorDigital() {
+    private LeitorDigital() {
         initComponents();
-        
-        // apenas para testes
+        globalContainer.setOpaque(false);
         this.setContentPane(new JPanel() {
 
             @Override
@@ -38,22 +50,64 @@ public class LeitorDigital extends javax.swing.JFrame {
                 g.drawImage(imagem, 0, 0, this);
             }
         });
-        java.awt.GridBagConstraints gridBagConstraints;
+        begin();
+    }
+
+    public static LeitorDigital getInstance() {
+        if (instance == null) {
+            instance = new LeitorDigital();
+        }
+        return instance;
+    }
+
+    private void switchTo(JPanel panel) {
+        clear();
+        globalContainer.add(panel, gridBagConstraints);
+        validate();
+        repaint();
+    }
+    
+    private void clear() {
+        globalContainer.removeAll();
+        this.getContentPane().validate();
+        this.getContentPane().repaint();
+    }
+
+    private JPanel mainPanel() {
+        return new MainPanel();
+    }
+    
+    private JPanel registerPanel() {
+        return new RegisterPanel();
+    }
+    
+    private void begin() {
+        final JButton button = new JButton("+ adicionar");
+        button.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (addButton) {
+                    button.setText("< voltar");
+                    switchTo(registerPanel());
+                } else {
+                    button.setText("+ adicionar");
+                    switchTo(mainPanel());
+                }
+                addButton = !addButton;
+            }
+        });
         
-        getContentPane().setLayout(new java.awt.GridBagLayout());
-        mainPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        mainPanel.setMinimumSize(new java.awt.Dimension(500, 730));
-        mainPanel.setPreferredSize(new java.awt.Dimension(500, 730));
-        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.ipady = 100;
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 100.0;
         
-        getContentPane().add(mainPanel, gridBagConstraints);
-        
-        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-610)/2, (screenSize.height-610)/2, 610, 610);
+        getContentPane().setLayout(new AbsoluteLayout());
+        getContentPane().add(button, new AbsoluteConstraints(250, 20, -1, -1));
+        getContentPane().add(globalContainer, new AbsoluteConstraints(0, 0, -1, -1));
+        switchTo(this.mainPanel());
     }
 
     /** This method is called from within the constructor to
@@ -65,35 +119,42 @@ public class LeitorDigital extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        middleContainer = new javax.swing.JLayeredPane();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pensino : Leitor Digital");
         setBounds(new java.awt.Rectangle(0, 0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(500, 730));
+        setMinimumSize(new java.awt.Dimension(365, 500));
         setName("framePrincipal"); // NOI18N
         setResizable(false);
-        getContentPane().setLayout(new java.awt.GridBagLayout());
-
-        middleContainer.setMinimumSize(new java.awt.Dimension(500, 300));
-        getContentPane().add(middleContainer, new java.awt.GridBagConstraints());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-610)/2, (screenSize.height-476)/2, 610, 476);
+        setBounds((screenSize.width-367)/2, (screenSize.height-530)/2, 367, 530);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
+        try {
+            for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            // If Nimbus is not available, you can set the GUI to another look and feel.
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
                 new LeitorDigital().setVisible(true);
             }
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLayeredPane middleContainer;
     // End of variables declaration//GEN-END:variables
 }

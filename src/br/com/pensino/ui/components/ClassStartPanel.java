@@ -41,11 +41,11 @@ public class ClassStartPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
-        setMaximumSize(new java.awt.Dimension(550, 170));
-        setMinimumSize(new java.awt.Dimension(550, 170));
+        setMaximumSize(new java.awt.Dimension(550, 100));
+        setMinimumSize(new java.awt.Dimension(550, 100));
         setOpaque(false);
-        setPreferredSize(new java.awt.Dimension(550, 170));
-        setLayout(new java.awt.GridLayout());
+        setPreferredSize(new java.awt.Dimension(550, 100));
+        setLayout(new java.awt.GridLayout(1, 0));
 
         jLabel1.setText("Código:");
         add(jLabel1);

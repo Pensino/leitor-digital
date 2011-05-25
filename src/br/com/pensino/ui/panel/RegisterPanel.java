@@ -23,16 +23,16 @@ import javax.swing.JProgressBar;
  *
  * @author emiliowl
  */
-public class MainPanel extends JPanel implements FingerprintEngineObserver {
+public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private JPanel middlePanel = null;
-    private JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
+    private JLabel messageLabel = new JLabel(new ImageIcon("msg002.png"));
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
-    public MainPanel() {
+    public RegisterPanel() {
         initComponents();
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintEngine.startObserve(this);
@@ -118,13 +118,13 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
 
     @Override
     public boolean notifyImageAcquired(BufferedImage fingerprintImage) {
-        MainPanel.setProgressStatus(75);
+        RegisterPanel.setProgressStatus(75);
         return true;
     }
 
     @Override
     public boolean notifyTemplateExtracted(BufferedImage templateImage) {
-        MainPanel.setProgressStatus(100);
+        RegisterPanel.setProgressStatus(100);
         return true;
     }
 
@@ -135,12 +135,12 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
 
     @Override
     public void notifyFingerDown() {
-        MainPanel.startProgress();
-        MainPanel.setProgressStatus(25);
+        RegisterPanel.startProgress();
+        RegisterPanel.setProgressStatus(25);
     }
 
     @Override
     public void notifyFingerUp() {
-        MainPanel.setProgressStatus(50);
+        RegisterPanel.setProgressStatus(50);
     }
 }
