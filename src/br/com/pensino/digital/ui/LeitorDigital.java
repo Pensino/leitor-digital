@@ -12,7 +12,6 @@ package br.com.pensino.digital.ui;
 
 import br.com.pensino.ui.panel.MainPanel;
 import br.com.pensino.ui.panel.RegisterPanel;
-import java.awt.Button;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -69,8 +68,8 @@ public class LeitorDigital extends javax.swing.JFrame {
     
     private void clear() {
         globalContainer.removeAll();
-        this.getContentPane().validate();
-        this.getContentPane().repaint();
+        validate();
+        repaint();
     }
 
     private JPanel mainPanel() {

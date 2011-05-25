@@ -28,7 +28,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private JPanel middlePanel = null;
-    private JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
+    private static JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
@@ -40,7 +40,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
         middlePanel = new ClassStartPanel();
         this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
         this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
-        this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 470, -1, -1));
+        this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
         progressBar.setVisible(false);
         progressBar.setMinimum(0);
         progressBar.setMaximum(100);
@@ -49,6 +49,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     }
     
     public static void startProgress() {      
+        messageLabel.setVisible(false);
         progressBar.setVisible(true);
     }
     
@@ -57,6 +58,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
         if(status >= 100) {
             progressBar.setValue(0);
             progressBar.setVisible(false);
+            messageLabel.setVisible(true);
         }
     }
 
