@@ -13,7 +13,7 @@ import java.awt.image.BufferedImage;
 public interface FingerprintEngineObserver {
     
     boolean notifyImageAcquired(BufferedImage fingerprintImage);
-    boolean notifyTemplateExtracted(BufferedImage templateImage);
+    boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData);
     boolean showSimilarities(BufferedImage fingerprintImage);
 
     public void notifyFingerDown();

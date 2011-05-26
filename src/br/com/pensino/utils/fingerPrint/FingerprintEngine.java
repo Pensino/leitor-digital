@@ -132,7 +132,7 @@ public class FingerprintEngine implements IStatusEventListener, IImageEventListe
 
     public boolean sendFingerprintTemplate(BufferedImage templateImage) {
         for (FingerprintEngineObserver fingerPrintEngineObserver : fingerPrintEngineObservers) {
-            fingerPrintEngineObserver.notifyTemplateExtracted(templateImage);
+            fingerPrintEngineObserver.notifyTemplateExtracted(templateImage, template.getData());
         }
         return true;
     }

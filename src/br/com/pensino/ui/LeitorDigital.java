@@ -8,7 +8,7 @@
  *
  * Created on 06/05/2011, 07:39:56
  */
-package br.com.pensino.digital.ui;
+package br.com.pensino.ui;
 
 import br.com.pensino.ui.panel.MainPanel;
 import br.com.pensino.ui.panel.RegisterPanel;
@@ -35,6 +35,8 @@ public class LeitorDigital extends javax.swing.JFrame {
     private java.awt.GridBagConstraints gridBagConstraints;
     private JPanel globalContainer = new JPanel();
     private boolean addButton = true;
+    private MainPanel mainPanel;
+    private RegisterPanel registerPanel;
     
     /** Creates new form LeitorDigital */
     private LeitorDigital() {
@@ -73,11 +75,17 @@ public class LeitorDigital extends javax.swing.JFrame {
     }
 
     private JPanel mainPanel() {
-        return new MainPanel();
+        if(mainPanel == null) {
+            mainPanel = new MainPanel();
+        }
+        return mainPanel;
     }
     
     private JPanel registerPanel() {
-        return new RegisterPanel();
+        if(registerPanel == null) {
+            registerPanel = new RegisterPanel();
+        }
+        return registerPanel;
     }
     
     private void begin() {

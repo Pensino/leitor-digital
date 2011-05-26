@@ -32,7 +32,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
         this.setBorder(new CompoundBorder(
                 new EmptyBorder(2, 2, 2, 2),
                 new BevelBorder(BevelBorder.LOWERED)));
-        this.setSize(230, 280);
+        this.setSize(130, 180);
     }
 
     /** This method is called from within the constructor to
@@ -66,7 +66,7 @@ public class FingerprintPanel extends javax.swing.JPanel implements FingerprintE
     }
 
     @Override
-    public boolean notifyTemplateExtracted(BufferedImage templateImage) {
+    public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
         fingerprintImage = templateImage;
         repaint();
         return true;

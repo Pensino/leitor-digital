@@ -14,6 +14,8 @@ import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -125,14 +127,22 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     }
 
     @Override
-    public boolean notifyTemplateExtracted(BufferedImage templateImage) {
+    public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
+        try {
+        FileOutputStream fos = new FileOutputStream("objeto1.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        oos.writeObject(templateData);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         RegisterPanel.setProgressStatus(100);
         return true;
     }
 
     @Override
     public boolean showSimilarities(BufferedImage fingerprintImage) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        return true;
     }
 
     @Override

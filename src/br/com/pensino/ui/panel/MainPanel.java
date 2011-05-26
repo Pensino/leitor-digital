@@ -14,6 +14,8 @@ import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,6 +30,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private JPanel middlePanel = null;
+    private Boolean aulaIniciada = false;
     private static JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
     private static JProgressBar progressBar = new JProgressBar();
 
@@ -125,14 +128,27 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     }
 
     @Override
-    public boolean notifyTemplateExtracted(BufferedImage templateImage) {
+    public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
+        if (!aulaIniciada) {
+            try {
+            FileInputStream fis = new FileInputStream("objeto1.ser");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            byte[] byteArray = (byte[])ois.readObject();
+            if (fingerprintEngine.checkFingerprint(byteArray)) {
+                aulaIniciada = true;
+            }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
         MainPanel.setProgressStatus(100);
         return true;
     }
 
     @Override
     public boolean showSimilarities(BufferedImage fingerprintImage) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+        return true;
     }
 
     @Override
