@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class KlassTest {
 
     private Professor professor = new Professor("zé");
-    private Discipline discipline = new Discipline("java");
+    private Discipline discipline = new Discipline("java", "OO programming language", 10);
 
     @Test
     public void shouldStartKlass() {
