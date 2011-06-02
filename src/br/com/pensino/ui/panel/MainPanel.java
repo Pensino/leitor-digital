@@ -13,10 +13,12 @@ package br.com.pensino.ui.panel;
 import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
+import br.com.pensino.utils.message.By;
+import br.com.pensino.utils.message.MessageService;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -26,12 +28,12 @@ import javax.swing.JProgressBar;
  * @author emiliowl
  */
 public class MainPanel extends JPanel implements FingerprintEngineObserver {
-    
+
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private JPanel middlePanel = null;
     private Boolean aulaIniciada = false;
-    private static JLabel messageLabel = new JLabel(new ImageIcon("msg001.png"));
+    private static JLabel messageLabel = new JLabel(MessageService.getMessage(By.name("msg001")));
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
@@ -50,15 +52,15 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
         this.setMinimumSize(new java.awt.Dimension(365, 500));
         this.setPreferredSize(new java.awt.Dimension(365, 500));
     }
-    
-    public static void startProgress() {      
+
+    public static void startProgress() {
         messageLabel.setVisible(false);
         progressBar.setVisible(true);
     }
-    
+
     public static void setProgressStatus(int status) {
         progressBar.setValue(status);
-        if(status >= 100) {
+        if (status >= 100) {
             progressBar.setValue(0);
             progressBar.setVisible(false);
             messageLabel.setVisible(true);
@@ -131,17 +133,25 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
         if (!aulaIniciada) {
             try {
-            FileInputStream fis = new FileInputStream("objeto1.ser");
-            ObjectInputStream ois = new ObjectInputStream(fis);
-            byte[] byteArray = (byte[])ois.readObject();
-            if (fingerprintEngine.checkFingerprint(byteArray)) {
-                aulaIniciada = true;
-            }
+                FileInputStream fis = new FileInputStream("objeto1.ser");
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                byte[] byteArray = (byte[]) ois.readObject();
+                MainPanel.setProgressStatus(100);
+                if (fingerprintEngine.checkFingerprint(byteArray)) {
+                    aulaIniciada = true;
+                    messageUpdater(MessageService.getMessage(By.name("msg002")));
+                    messageUpdater(MessageService.getMessage(By.name("msg005")));
+                } else {
+                    Icon beforeIcon = messageLabel.getIcon();
+                    messageUpdater(MessageService.getMessage(By.name("msg004")));
+                    messageUpdater(beforeIcon);
+                }
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
+        } else {
+            MainPanel.setProgressStatus(100);
         }
-        MainPanel.setProgressStatus(100);
         return true;
     }
 
@@ -160,5 +170,15 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     @Override
     public void notifyFingerUp() {
         MainPanel.setProgressStatus(50);
+    }
+
+    private void messageUpdater(Icon message) {
+        try {
+            Thread t1 = new Thread();
+            t1.sleep(1000);
+            messageLabel.setIcon(message);
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
     }
 }

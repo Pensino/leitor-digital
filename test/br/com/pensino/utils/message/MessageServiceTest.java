@@ -38,6 +38,6 @@ public class MessageServiceTest {
 
     @Test
     public void shouldGetMessageByName() {
-        assertNotNull(MessageService.getMessage(By.name("msg001").getImage()));
+        assertNotNull(MessageService.getMessage(By.name("msg001")));
     }
 }

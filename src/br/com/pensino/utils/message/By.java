@@ -11,7 +11,22 @@ import javax.swing.ImageIcon;
  * @author emiliowl
  */
 public class By {
-        public static ImageIcon name(String fileName) {
-            return new ImageIcon(fileName + ".png");
-        }
+
+    private ImageIcon message;
+    
+    public By(ImageIcon message) {
+        super();
+        this.message = message;
     }
+    
+    public ImageIcon getMessage() {
+        if (message != null) {
+            return this.message;
+        }
+        throw new IllegalStateException("Argumento de busca inicializado incorretamente");
+    }
+
+    public static By name(String fileName) {
+        return new By(new ImageIcon(fileName + ".png"));
+    }
+}

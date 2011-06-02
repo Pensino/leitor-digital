@@ -4,7 +4,7 @@
  */
 package br.com.pensino.utils.message;
 
-import java.awt.Image;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -12,8 +12,8 @@ import java.awt.Image;
  */
 public class MessageService {
     
-    public static Image getMessage(Image image) {
-        return image;
+    public static ImageIcon getMessage(By kindOfSearch) {
+        return kindOfSearch.getMessage();
     }
  
     

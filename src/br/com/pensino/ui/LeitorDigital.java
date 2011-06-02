@@ -12,6 +12,8 @@ package br.com.pensino.ui;
 
 import br.com.pensino.ui.panel.MainPanel;
 import br.com.pensino.ui.panel.RegisterPanel;
+import br.com.pensino.utils.fingerPrint.FingerprintEngine;
+import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.Image;
@@ -97,9 +99,13 @@ public class LeitorDigital extends javax.swing.JFrame {
                 if (addButton) {
                     button.setText("< voltar");
                     switchTo(registerPanel());
+                    FingerprintEngine.getInstance().stopObserve((FingerprintEngineObserver)mainPanel());
+                    FingerprintEngine.getInstance().startObserve((FingerprintEngineObserver)registerPanel());
                 } else {
                     button.setText("+ adicionar");
                     switchTo(mainPanel());
+                    FingerprintEngine.getInstance().stopObserve((FingerprintEngineObserver)registerPanel());
+                    FingerprintEngine.getInstance().startObserve((FingerprintEngineObserver)mainPanel());
                 }
                 addButton = !addButton;
             }
