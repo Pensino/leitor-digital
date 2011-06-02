@@ -4,7 +4,9 @@
  */
 package br.com.pensino.domain.model;
 
+import br.com.caelum.stella.SimpleMessageProducer;
 import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 
 /**
  *
@@ -37,10 +39,8 @@ class Student {
         return document;
     }
 
-    public final void setDocument(String document) {
-        if (!new CPFValidator().isEligible(document)) {
-            throw new IllegalArgumentException("CPF " + document + " inválido!");
-        }
+    public final void setDocument(String document) throws InvalidStateException {
+        new CPFValidator(new SimpleMessageProducer(), false, false).assertValid(document);
         this.document = document;
     }
 

@@ -42,12 +42,11 @@ public class LessonTest {
     }
 
     @Test
-    public void shouldRecordPresenca() {
+    public void shouldRecordPresence() {
         Lesson lesson = new Lesson(professor, discipline);
         lesson.start();
 
         Student student = new Student("Robert", "Downey Jr.", "37374688857", "091111");
-
         lesson.givePresence(student);
 
         assertTrue(lesson.isPresent(student));
