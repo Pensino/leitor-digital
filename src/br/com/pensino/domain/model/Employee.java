@@ -5,20 +5,30 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 
 /**
  *
  * @author emiliowl
  */
-class Employee implements Serializable, Comparable<Employee> {
+@Entity
+@Table(name = "employees")
+public class Employee implements Serializable, Comparable<Employee> {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column(name = "first_name")
     private String firstName = "";
+    @Column(name = "last_name")
     private String lastName = "";
     private String document = "";
+    @Column(name = "registration")
     private String register = "";
-    private Function function;
+    private Boolean professor = false;
+    private Boolean coordinator = false;
 
-    Employee(String firstName, String lastName, String document, String register, Function function) {
+    public Employee(String firstName, String lastName, String document, String register, Function function) {
         if (firstName == null || firstName.trim().equals("")) {
             throw new IllegalArgumentException("Empregado precisa ter um nome");
         } else if (lastName == null || lastName.trim().equals("")) {
@@ -27,21 +37,29 @@ class Employee implements Serializable, Comparable<Employee> {
             throw new IllegalArgumentException("Empregado deve possuir um documento");
         } else if (register == null || register.trim().equals("")) {
             throw new IllegalArgumentException("Empregado deve possuir um registro");
+        } else if (function.equals(Function.COORDENADOR)) {
+            coordinator = true;
+        } else if (function.equals(Function.PROFESSOR)) {
+            professor = true;
         }
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.document = document;
         this.register = register;
-        this.function = function;
+    }
+
+    public Employee() {
+        super();
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
-        }
-        if (((Employee) obj).getDocument().trim().equals("")) {
+        } else if (!(obj instanceof Employee)) {
+            return false;
+        } else if (((Employee) obj).getDocument().trim().equals("")) {
             return false;
         }
         return document.equals(((Employee) obj).getDocument());
@@ -80,11 +98,13 @@ class Employee implements Serializable, Comparable<Employee> {
     }
 
     public Function getFunction() {
-        return function;
-    }
-
-    public void setFunction(Function function) {
-        this.function = function;
+        if (professor) {
+            return Function.PROFESSOR;
+        } else if (coordinator) {
+            return Function.COORDENADOR;
+        } else {
+            throw new IllegalStateException("O empregado possui função desconhecida.");
+        }
     }
 
     public String getLastName() {

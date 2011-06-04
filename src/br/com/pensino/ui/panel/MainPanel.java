@@ -175,7 +175,7 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     private void messageUpdater(Icon message) {
         try {
             Thread t1 = new Thread();
-            t1.sleep(1000);
+            t1.sleep(600);
             messageLabel.setIcon(message);
         } catch (InterruptedException ie) {
             ie.printStackTrace();

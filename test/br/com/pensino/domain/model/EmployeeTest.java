@@ -34,7 +34,6 @@ public class EmployeeTest {
     
      public void employeesWithSameDocumentAreEquals() {
         assertTrue(new Employee("Emilio", "Resende", "37374688857", "1325", Employee.Function.PROFESSOR).equals(new Employee("Jonny", "B.Good", "37374688857", "006970594", Employee.Function.COORDENADOR)));
-    }
-    
-    
+    }  
+     
 }
