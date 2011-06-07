@@ -7,8 +7,9 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/pensino_development</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password"></property>
+        <property name="hibernate.cache.use_query_cache">false</property>
+        <property name="hibernate.cache.use_second_level_cache">false</property>
         <!-- mapeamentos de entidades-->
         <mapping class="br.com.pensino.domain.model.Employee"></mapping>
-        <mapping class="br.com.pensino.domain.model.Test"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -27,6 +27,8 @@ public class Employee implements Serializable, Comparable<Employee> {
     private String register = "";
     private Boolean professor = false;
     private Boolean coordinator = false;
+    @Column(name = "fingerprint")
+    private byte[] fingerprint;
 
     public Employee(String firstName, String lastName, String document, String register, Function function) {
         if (firstName == null || firstName.trim().equals("")) {
@@ -72,10 +74,15 @@ public class Employee implements Serializable, Comparable<Employee> {
 
     @Override
     public int compareTo(Employee o) {
-        return lastName.compareTo(o.getLastName());
+        return document.compareTo(o.getDocument());
+    }
+    
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " [" + document + "]"; 
     }
 
-    enum Function {
+    public enum Function {
 
         COORDENADOR,
         PROFESSOR;
@@ -121,5 +128,13 @@ public class Employee implements Serializable, Comparable<Employee> {
 
     public void setRegister(String register) {
         this.register = register;
+    }
+
+    public byte[] getFingerprint() {
+        return fingerprint;
+    }
+
+    public void setFingerprint(byte[] fingerprint) {
+        this.fingerprint = fingerprint;
     }
 }

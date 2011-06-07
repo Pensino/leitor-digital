@@ -10,12 +10,13 @@
  */
 package br.com.pensino.ui.panel;
 
+import br.com.pensino.domain.model.Employee;
 import br.com.pensino.ui.components.ClassStartPanel;
+import br.com.pensino.utils.db.EmployeeDAO;
+import br.com.pensino.utils.db.EmployeeDAO.By;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -129,9 +130,10 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     @Override
     public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
         try {
-        FileOutputStream fos = new FileOutputStream("objeto1.ser");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(templateData);
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        Employee employee = employeeDAO.find(By.partOfName("Rambo")).get(0);
+        employee.setFingerprint(templateData);
+        employeeDAO.save(employee);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
