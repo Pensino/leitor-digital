@@ -4,6 +4,7 @@
  */
 package br.com.pensino.utils.db;
 
+import br.com.pensino.utils.db.DataAccessObject.By;
 import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
  * @author emiliowl
  */
 public class FingerprintDAOTest {
+
     @Test
     public void shouldSaveFingerprint() {
         Employee emilio = new EmployeeDAO().find(1);
@@ -21,5 +23,10 @@ public class FingerprintDAOTest {
         emilio.addFingerprint(fingerprint);
         FingerprintDAO dao = new FingerprintDAO();
         assertTrue(dao.save(fingerprint));
+    }
+
+    @Test
+    public void shouldLoadFingerprintWithId1() {
+        assertNotNull(new FingerprintDAO().find(By.id(1)));
     }
 }

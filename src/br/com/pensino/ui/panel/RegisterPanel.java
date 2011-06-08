@@ -14,7 +14,7 @@ import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
 import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.db.EmployeeDAO;
-import br.com.pensino.utils.db.EmployeeDAO.By;
+import br.com.pensino.utils.db.DataAccessObject.By;
 import br.com.pensino.utils.db.FingerprintDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;

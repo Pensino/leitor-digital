@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
-import br.com.pensino.utils.db.EmployeeDAO.By;
+import br.com.pensino.utils.db.DataAccessObject.By;
 import java.io.IOException;
 import org.junit.Test;
 import static org.junit.Assert.*;

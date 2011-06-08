@@ -17,7 +17,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author emiliowl
  */
-public class EmployeeDAO {
+public class EmployeeDAO implements DataAccessObject<Employee> {
 
     PensinoDAO pensinoDAO = PensinoDAO.getInstance();
     Session session;
@@ -27,6 +27,7 @@ public class EmployeeDAO {
         session = pensinoDAO.openSession();
     }
 
+    @Override
     public List<Employee> all() {
         try {
             Transaction tx = session.beginTransaction();
@@ -40,6 +41,7 @@ public class EmployeeDAO {
         }
     }
 
+    @Override
     public Employee find(Integer id) {
         try {
             Transaction tx = session.beginTransaction();
@@ -72,6 +74,7 @@ public class EmployeeDAO {
         }
     }
 
+    @Override
     public boolean save(Employee employee) {
         try {
             Transaction tx = session.beginTransaction();
@@ -88,16 +91,5 @@ public class EmployeeDAO {
     protected void finalize() throws Throwable {
         session.close();
         super.finalize();
-    }
-
-    public static class By {
-
-        public static Integer id(Integer id) {
-            return id;
-        }
-
-        public static String partOfName(String partOfName) {
-            return partOfName;
-        }
     }
 }
