@@ -10,6 +10,7 @@
         <property name="hibernate.cache.use_query_cache">false</property>
         <property name="hibernate.cache.use_second_level_cache">false</property>
         <!-- mapeamentos de entidades-->
+        <mapping class="br.com.pensino.domain.model.Fingerprint"></mapping>
         <mapping class="br.com.pensino.domain.model.Employee"></mapping>
     </session-factory>
 </hibernate-configuration>

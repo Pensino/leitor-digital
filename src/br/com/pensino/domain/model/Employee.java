@@ -5,6 +5,8 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.*;
 
 /**
@@ -27,8 +29,8 @@ public class Employee implements Serializable, Comparable<Employee> {
     private String register = "";
     private Boolean professor = false;
     private Boolean coordinator = false;
-    @Column(name = "fingerprint")
-    private byte[] fingerprint;
+    @OneToMany(cascade= CascadeType.REMOVE, fetch= FetchType.EAGER)
+    private Collection<Fingerprint> fingerprint = new ArrayList<Fingerprint>();
 
     public Employee(String firstName, String lastName, String document, String register, Function function) {
         if (firstName == null || firstName.trim().equals("")) {
@@ -130,11 +132,11 @@ public class Employee implements Serializable, Comparable<Employee> {
         this.register = register;
     }
 
-    public byte[] getFingerprint() {
+    public Collection<Fingerprint> getFingerprintList() {
         return fingerprint;
     }
 
-    public void setFingerprint(byte[] fingerprint) {
-        this.fingerprint = fingerprint;
+    public boolean addFingerprint(Fingerprint fingerprint) {
+        return this.fingerprint.add(fingerprint);
     }
 }
