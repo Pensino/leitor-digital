@@ -4,7 +4,6 @@
  */
 package br.com.pensino.utils.db;
 
-import br.com.pensino.utils.db.DataAccessObject.By;
 import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
 import org.junit.Test;
@@ -27,6 +26,6 @@ public class FingerprintDAOTest {
 
     @Test
     public void shouldLoadFingerprintWithId1() {
-        assertNotNull(new FingerprintDAO().find(By.id(1)));
+        assertNotNull(new FingerprintDAO().find(1));
     }
 }

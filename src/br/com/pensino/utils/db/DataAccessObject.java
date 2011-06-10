@@ -17,15 +17,4 @@ public interface DataAccessObject<T> {
     public Collection<T> all();
 
     public T find(Integer id);
-
-    public static class By {
-
-        public static Integer id(Integer id) {
-            return id;
-        }
-
-        public static String partOfName(String partOfName) {
-            return partOfName;
-        }
-    }
 }

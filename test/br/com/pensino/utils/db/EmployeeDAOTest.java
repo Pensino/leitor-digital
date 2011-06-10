@@ -9,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
-import br.com.pensino.utils.db.DataAccessObject.By;
 import java.io.IOException;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -28,13 +27,13 @@ public class EmployeeDAOTest {
 
     @Test
     public void shouldRetrieveEmployeeById() {
-        assertNotNull(new EmployeeDAO().find(By.id(1)));
-        assertTrue(new EmployeeDAO().find(By.id(1)).getFirstName().equals("John"));
+        assertNotNull(new EmployeeDAO().find(1));
+        assertTrue(new EmployeeDAO().find(1).getFirstName().equals("John"));
     }
 
     @Test
     public void shouldRetrieveEmployeeByFirstName() {
-        assertTrue(new EmployeeDAO().find(By.partOfName("jo")).get(0).getFirstName().equals("John"));
+        assertTrue(new EmployeeDAO().find("jo").get(0).getFirstName().equals("John"));
     }
 
     @Test

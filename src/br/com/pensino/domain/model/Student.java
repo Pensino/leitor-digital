@@ -12,9 +12,9 @@ import br.com.caelum.stella.validation.InvalidStateException;
  *
  * @author emiliowl
  */
-class Student {
+class Student implements Person {
 
-    private String name;
+    private String firstName;
     private String lastName;
     private String document;
     private String registration;
@@ -29,12 +29,13 @@ class Student {
             throw new IllegalArgumentException("Estudante deve possuir um registro");
         }
 
-        this.name = firstName;
+        this.firstName = firstName;
         this.lastName = lastName;
         this.setDocument(document);
         this.registration = registration;
     }
 
+    @Override
     public String getDocument() {
         return document;
     }
@@ -44,6 +45,7 @@ class Student {
         this.document = document;
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }
@@ -52,12 +54,13 @@ class Student {
         this.lastName = lastName;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getRegistration() {
@@ -92,7 +95,6 @@ class Student {
     @Override
     public int hashCode() {
         return document.hashCode();
-    }
-    
+    }   
     
 }

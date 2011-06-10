@@ -74,6 +74,25 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         }
     }
 
+    public List<Employee> find(By criteria, String value){
+        try {
+            Transaction tx = session.beginTransaction();
+            TreeSet<Employee> employeeSet = new TreeSet<Employee>();
+            List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like(criteria.getValue(), value, MatchMode.ANYWHERE)).list();
+            for (Employee employee : employeeList) {
+                employeeSet.add(employee);
+            }
+
+            employeeList.clear();
+            employeeList.addAll(employeeSet);
+            tx.commit();
+            return employeeList;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public boolean save(Employee employee) {
         try {
@@ -87,9 +106,17 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        session.close();
-        super.finalize();
+    public enum By {
+        ID("id"), FIRST_NAME("first_name"), DOCUMENT("document");
+        
+        private final String value;
+        
+        public String getValue() {
+            return this.value;
+        }
+        
+        By(String value) {
+            this.value = value;
+        }
     }
 }

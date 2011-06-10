@@ -15,7 +15,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "employees")
-public class Employee implements Serializable, Comparable<Employee> {
+public class Employee implements Serializable, Comparable<Employee>, Person {
 
     @Id
     @GeneratedValue
@@ -24,8 +24,9 @@ public class Employee implements Serializable, Comparable<Employee> {
     private String firstName = "";
     @Column(name = "last_name")
     private String lastName = "";
+    @Column(unique=true)
     private String document = "";
-    @Column(name = "registration")
+    @Column(name = "registration", unique=true)
     private String register = "";
     private Boolean professor = false;
     private Boolean coordinator = false;
@@ -90,6 +91,7 @@ public class Employee implements Serializable, Comparable<Employee> {
         PROFESSOR;
     }
 
+    @Override
     public String getDocument() {
         return document;
     }
@@ -98,6 +100,7 @@ public class Employee implements Serializable, Comparable<Employee> {
         this.document = document;
     }
 
+    @Override
     public String getFirstName() {
         return firstName;
     }
@@ -116,6 +119,7 @@ public class Employee implements Serializable, Comparable<Employee> {
         }
     }
 
+    @Override
     public String getLastName() {
         return lastName;
     }

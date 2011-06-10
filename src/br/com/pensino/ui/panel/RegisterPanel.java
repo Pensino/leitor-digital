@@ -12,15 +12,16 @@ package br.com.pensino.ui.panel;
 
 import br.com.pensino.domain.model.Employee;
 import br.com.pensino.domain.model.Fingerprint;
-import br.com.pensino.ui.components.ClassStartPanel;
+import br.com.pensino.domain.model.Person;
+import br.com.pensino.ui.components.MiddleRegisterPanel;
 import br.com.pensino.utils.db.EmployeeDAO;
-import br.com.pensino.utils.db.DataAccessObject.By;
 import br.com.pensino.utils.db.FingerprintDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -30,9 +31,11 @@ import javax.swing.JProgressBar;
  */
 public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     
+    EmployeeDAO employeeDAO = new EmployeeDAO();
+    FingerprintDAO fingerprintDAO = new FingerprintDAO();
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
-    private JPanel middlePanel = null;
+    private MiddleRegisterPanel middlePanel = null;
     private static JLabel messageLabel = new JLabel(new ImageIcon("msg002.png"));
     private static JProgressBar progressBar = new JProgressBar();
 
@@ -42,7 +45,7 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintEngine.startObserve(this);
         fingerprintContentPanel.add(fingerprintPanel);
-        middlePanel = new ClassStartPanel();
+        middlePanel = new MiddleRegisterPanel(employeeDAO);
         this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
         this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
         this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
@@ -132,13 +135,17 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     @Override
     public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
         try {
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        FingerprintDAO fingerprintDAO = new FingerprintDAO();
-        Employee employee = employeeDAO.find(By.partOfName("Rambo")).get(0);
-        Fingerprint fingerprint = new Fingerprint(templateData, employee);
-        employee.addFingerprint(fingerprint);
-        fingerprintDAO.save(fingerprint);
-        employeeDAO.save(employee);
+        Person person = middlePanel.getSelectedPerson();
+        if (person == null) {
+            JOptionPane.showMessageDialog(this, "Selecione um Professor", "Erro ao salvar impressão digital", JOptionPane.ERROR_MESSAGE);
+        }
+        if (person instanceof Employee) {
+            Employee employee = (Employee)person;
+            Fingerprint fingerprint = new Fingerprint(templateData, employee);
+            employee.addFingerprint(fingerprint);
+            fingerprintDAO.save(fingerprint);
+            employeeDAO.save(employee);
+        }        
         } catch (Exception ex) {
             ex.printStackTrace();
         }
