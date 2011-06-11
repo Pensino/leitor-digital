@@ -139,11 +139,12 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
                 MainPanel.setProgressStatus(100);
                 if (fingerprintEngine.checkFingerprint(byteArray)) {
                     aulaIniciada = true;
-                    messageUpdater(MessageService.getMessage(By.name("msg002")));
-                    messageUpdater(MessageService.getMessage(By.name("msg005")));
+                    messageUpdater("msg002");
+                    messageUpdater("msg005");
                 } else {
-                    Icon beforeIcon = messageLabel.getIcon();
-                    messageUpdater(MessageService.getMessage(By.name("msg004")));
+                    String beforeIcon = messageLabel.getIcon().toString();
+                    beforeIcon = beforeIcon.substring(beforeIcon.indexOf("msg"), beforeIcon.indexOf("msg") + 6);
+                    messageUpdater("msg004");
                     messageUpdater(beforeIcon);
                 }
             } catch (Exception ex) {
@@ -172,11 +173,11 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
         MainPanel.setProgressStatus(50);
     }
 
-    private void messageUpdater(Icon message) {
+    private void messageUpdater(String message) {
         try {
             Thread t1 = new Thread();
             t1.sleep(600);
-            messageLabel.setIcon(message);
+            messageLabel.setIcon(MessageService.getMessage(By.name(message)));
         } catch (InterruptedException ie) {
             ie.printStackTrace();
         }

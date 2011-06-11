@@ -18,10 +18,11 @@ import br.com.pensino.utils.db.EmployeeDAO;
 import br.com.pensino.utils.db.FingerprintDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
+import br.com.pensino.utils.message.By;
+import br.com.pensino.utils.message.MessageService;
 import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -36,7 +37,7 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private MiddleRegisterPanel middlePanel = null;
-    private static JLabel messageLabel = new JLabel(new ImageIcon("msg002.png"));
+    private static JLabel messageLabel = new JLabel(new ImageIcon("msg007.png"));
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
@@ -137,25 +138,30 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
         try {
         Person person = middlePanel.getSelectedPerson();
         if (person == null) {
-            JOptionPane.showMessageDialog(this, "Selecione um Professor", "Erro ao salvar impressão digital", JOptionPane.ERROR_MESSAGE);
+            messageUpdater("msg006");
+            RegisterPanel.setProgressStatus(100);
+            messageUpdater("msg007");
         }
         if (person instanceof Employee) {
             Employee employee = (Employee)person;
             Fingerprint fingerprint = new Fingerprint(templateData, employee);
             employee.addFingerprint(fingerprint);
             fingerprintDAO.save(fingerprint);
-            employeeDAO.save(employee);
+            if (employeeDAO.save(employee)) {
+                messageUpdater("msg009");
+                RegisterPanel.setProgressStatus(100);
+                messageUpdater("msg007");
+            }
         }        
         } catch (Exception ex) {
+            RegisterPanel.setProgressStatus(100);
             ex.printStackTrace();
         }
-        RegisterPanel.setProgressStatus(100);
         return true;
     }
 
     @Override
     public boolean showSimilarities(BufferedImage fingerprintImage) {
-        //throw new UnsupportedOperationException("Not supported yet.");
         return true;
     }
 
@@ -169,4 +175,14 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     public void notifyFingerUp() {
         RegisterPanel.setProgressStatus(50);
     }
+    
+    private void messageUpdater(String message) {
+        try {
+            Thread.sleep(750);
+            messageLabel.setIcon(MessageService.getMessage(By.name(message)));
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
+    }
+    
 }

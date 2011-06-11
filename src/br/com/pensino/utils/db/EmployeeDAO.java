@@ -5,7 +5,9 @@
 package br.com.pensino.utils.db;
 
 import br.com.pensino.domain.model.Employee;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -33,6 +35,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
             Transaction tx = session.beginTransaction();
             Criteria criteria = session.createCriteria(Employee.class);
             List<Employee> employeeList = criteria.list();
+            clearCollection(employeeList);
             tx.commit();
             return employeeList;
         } catch (Exception ex) {
@@ -57,16 +60,10 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
     public List<Employee> find(String partOfName) {
         try {
             Transaction tx = session.beginTransaction();
-            TreeSet<Employee> employeeSet = new TreeSet<Employee>();
             List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like("firstName", partOfName, MatchMode.ANYWHERE)).list();
             employeeList.addAll(session.createCriteria(Employee.class).add(Restrictions.like("lastName", partOfName, MatchMode.ANYWHERE)).list());
-            for (Employee employee : employeeList) {
-                employeeSet.add(employee);
-            }
-
-            employeeList.clear();
-            employeeList.addAll(employeeSet);
             tx.commit();
+            clearCollection(employeeList);
             return employeeList;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -77,15 +74,9 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
     public List<Employee> find(By criteria, String value){
         try {
             Transaction tx = session.beginTransaction();
-            TreeSet<Employee> employeeSet = new TreeSet<Employee>();
             List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like(criteria.getValue(), value, MatchMode.ANYWHERE)).list();
-            for (Employee employee : employeeList) {
-                employeeSet.add(employee);
-            }
-
-            employeeList.clear();
-            employeeList.addAll(employeeSet);
             tx.commit();
+            clearCollection(employeeList);
             return employeeList;
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -104,6 +95,13 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
             ex.printStackTrace();
             return false;
         }
+    }
+    
+    public void clearCollection(Collection<Employee> collection) {
+        Set<Employee> cleanerSet = new TreeSet<Employee>();
+        cleanerSet.addAll(collection);
+        collection.clear();
+        collection.addAll(cleanerSet);
     }
 
     public enum By {

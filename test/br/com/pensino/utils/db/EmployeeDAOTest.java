@@ -4,6 +4,7 @@
  */
 package br.com.pensino.utils.db;
 
+import br.com.pensino.utils.db.EmployeeDAO.By;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -41,12 +42,17 @@ public class EmployeeDAOTest {
         Employee employee = new Employee("John", "Rambo", "123456789", "006680594", Employee.Function.PROFESSOR);
         assertTrue(new EmployeeDAO().save(employee));
     }
+    
+    @Test
+    public void shouldRetrieveEmployeeByCriteria() {
+        Employee employee = new EmployeeDAO().find(By.DOCUMENT, "123456789").get(0);
+        employee.getFirstName().equals("John");
+    }
 
     @Test
     public void shouldStoreNewFingeprintToEmployee() throws IOException, ClassNotFoundException {
-        Employee employee = new Employee("Jhonny", "English", "999999999", "006680595", Employee.Function.COORDENADOR);
         EmployeeDAO employeeDAO = new EmployeeDAO();
-        employeeDAO.save(employee);
+        Employee employee = employeeDAO.find(1);
         File file = new File("objeto1.ser");
         FileInputStream fis = new FileInputStream(file.getAbsolutePath());
         ObjectInputStream ois = new ObjectInputStream(fis);
