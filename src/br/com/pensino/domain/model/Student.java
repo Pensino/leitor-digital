@@ -46,7 +46,7 @@ public class Student implements Person, Comparable<Student>, Serializable {
         super();
     }
 
-    Student(String firstName, String lastName, String document, String registration) {
+    public Student(String firstName, String lastName, String document, String registration) {
         if (firstName == null || firstName.trim().equals("")) {
             throw new IllegalArgumentException("Estudante deve possuir um nome");
         } else if (lastName == null || lastName.trim().equals("")) {

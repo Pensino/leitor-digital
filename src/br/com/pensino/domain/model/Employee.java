@@ -57,7 +57,8 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
         this.register = register;
     }
 
-    public Employee() {
+    //for hibernate usage only
+    protected Employee() {
         super();
     }
 
