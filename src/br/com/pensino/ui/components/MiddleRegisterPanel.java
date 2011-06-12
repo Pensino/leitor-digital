@@ -11,8 +11,11 @@
 package br.com.pensino.ui.components;
 
 import br.com.pensino.domain.model.Person;
+import br.com.pensino.ui.exception.EmployeeNotFoundException;
+import br.com.pensino.ui.exception.PersonNotFoundException;
+import br.com.pensino.ui.exception.StudentNotFoundException;
 import br.com.pensino.utils.db.EmployeeDAO;
-import br.com.pensino.utils.db.EmployeeDAO.By;
+import br.com.pensino.utils.db.StudentDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -25,22 +28,31 @@ public class MiddleRegisterPanel extends javax.swing.JPanel {
 
     String[] tableHeader = new String[]{"NOME", "DOCUMENTO"};
     EmployeeDAO employeeDAO;
+    StudentDAO studentDAO;
 
     /** Creates new form ClassStartPanel */
-    public MiddleRegisterPanel(EmployeeDAO employeeDAO) {
+    public MiddleRegisterPanel(EmployeeDAO employeeDAO, StudentDAO studentDAO) {
         this.employeeDAO = employeeDAO;
+        this.studentDAO = studentDAO;
         initComponents();
         init();
         loadTableWithPerson(employeeDAO.all());
     }
 
-    public Person getSelectedPerson() {
-        if (jComboBox1.getSelectedItem().equals("Professores") && jTable1.getSelectedRow() > -1) {
+    public Person getSelectedPerson() throws PersonNotFoundException {
+        if (jTable1.getSelectedRow() > -1) {
             String personDocument = (String)jTable1.getValueAt(jTable1.getSelectedRow(), 1);
-            return employeeDAO.find(By.DOCUMENT, personDocument).get(0);
-        } else if (jComboBox1.getSelectedItem().equals("Alunos")) {
+            if (jComboBox1.getSelectedItem().equals("Professores")) {    
+                return employeeDAO.find(EmployeeDAO.By.DOCUMENT, personDocument).get(0);
+            } else if (jComboBox1.getSelectedItem().equals("Alunos")) {
+                return studentDAO.find(StudentDAO.By.DOCUMENT, personDocument).get(0);
+            }
         }
-        return null;
+        if (jComboBox1.getSelectedItem().equals("Professores")) {
+            throw new EmployeeNotFoundException();
+        } else {
+            throw new StudentNotFoundException();
+        }
     }
 
     private void init() {
@@ -121,7 +133,7 @@ public class MiddleRegisterPanel extends javax.swing.JPanel {
             if (jComboBox1.getSelectedItem().equals("Professores")) {
                 loadTableWithPerson(employeeDAO.all());
             } else if (jComboBox1.getSelectedItem().equals("Alunos")) {
-                loadTableWithPerson(null);
+                loadTableWithPerson(studentDAO.all());
             }
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
