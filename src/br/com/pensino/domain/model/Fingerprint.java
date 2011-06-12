@@ -22,7 +22,9 @@ public class Fingerprint implements Serializable {
     private byte[] fingerprintData;
     @ManyToOne(fetch= FetchType.EAGER)
     private Employee employee;
-
+    @ManyToOne(fetch= FetchType.EAGER)
+    private Student student;
+    
     public Fingerprint() {
         super();
     }
@@ -32,4 +34,13 @@ public class Fingerprint implements Serializable {
         this.employee = employee;
     }
     
+    public Fingerprint(byte[] fingerprintData, Student student) {
+        this.fingerprintData = fingerprintData;
+        this.student = student;
+    }
+    
+    public byte[] getFingerprintData() {
+        return fingerprintData;
+    }
+   
 }

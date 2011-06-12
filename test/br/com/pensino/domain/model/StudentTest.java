@@ -31,17 +31,16 @@ public class StudentTest {
     
     @Test
     public void studentCanHaveMultipleFingerprints() throws Exception {
-    Student student = new Student("JOW", "Drungo", "37374688857", "071111");
+    Student jow = new Student("JOW", "Drungo", "37374688857", "071111");
     File file = new File("objeto1.ser");
     FileInputStream fis = new FileInputStream(file.getAbsolutePath());
     ObjectInputStream ois = new ObjectInputStream(fis);
     byte[] fingerprintData = (byte[])ois.readObject();
-    byte[] fingerprintData2 = (byte[])ois.readObject();
-    Fingerprint fingeprint = new Fingerprint(fingerprintData, student);
-    student.add(fingerprint
-    Fingerprint fingeprint2 = new Fingerprint(fingerprintData, student);
-    student.add(fingerprint2);
-    assertTrue(student.getFingerprints().contains(fingerprint));
-    assertTrue(student.getFingerprints().contains(fingerprint2));
+    Fingerprint fingerprint = new Fingerprint(fingerprintData, jow);
+    jow.addFingerprint(fingerprint);
+    Fingerprint fingerprint2 = new Fingerprint(fingerprintData, jow);
+    jow.addFingerprint(fingerprint2);
+    assertTrue(jow.getFingerprintList().contains(fingerprint));
+    assertTrue(jow.getFingerprintList().contains(fingerprint2));
     }
 }

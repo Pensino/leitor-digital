@@ -4,9 +4,12 @@
  */
 package br.com.pensino.domain.model;
 
+import br.com.caelum.stella.SimpleMessageProducer;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -31,7 +34,7 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
     private Boolean professor = false;
     private Boolean coordinator = false;
     @OneToMany(cascade= CascadeType.REMOVE, fetch= FetchType.EAGER)
-    private Collection<Fingerprint> fingerprint = new ArrayList<Fingerprint>();
+    private Set<Fingerprint> fingerprint = new HashSet<Fingerprint>();
 
     public Employee(String firstName, String lastName, String document, String register, Function function) {
         if (firstName == null || firstName.trim().equals("")) {
@@ -50,7 +53,7 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.document = document;
+        this.setDocument(document);
         this.register = register;
     }
 
@@ -96,7 +99,8 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
         return document;
     }
 
-    public void setDocument(String document) {
+    public void setDocument(String document) throws InvalidStateException {
+        new CPFValidator(new SimpleMessageProducer(), false, false).assertValid(document);
         this.document = document;
     }
 
@@ -136,7 +140,7 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
         this.register = register;
     }
 
-    public Collection<Fingerprint> getFingerprintList() {
+    public Set<Fingerprint> getFingerprintList() {
         return fingerprint;
     }
 

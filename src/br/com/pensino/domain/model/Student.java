@@ -7,18 +7,44 @@ package br.com.pensino.domain.model;
 import br.com.caelum.stella.SimpleMessageProducer;
 import br.com.caelum.stella.validation.CPFValidator;
 import br.com.caelum.stella.validation.InvalidStateException;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author emiliowl
  */
-class Student implements Person {
+@Entity
+@Table(name = "students")
+public class Student implements Person, Comparable<Student>, Serializable {
 
-    private String firstName;
-    private String lastName;
-    private String document;
-    private String registration;
-    private byte[] fingerprintData;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @Column(name = "first_name")
+    private String firstName = "";
+    @Column(name = "last_name")
+    private String lastName = "";
+    @Column(unique=true)
+    private String document = "";
+    @Column(name = "registration", unique=true)
+    private String register = "";
+    @OneToMany(cascade= CascadeType.REMOVE, fetch= FetchType.EAGER)
+    private Set<Fingerprint> fingerprint = new HashSet<Fingerprint>();
+    
+    //for hibernate usage only
+    protected Student() {
+        super();
+    }
 
     Student(String firstName, String lastName, String document, String registration) {
         if (firstName == null || firstName.trim().equals("")) {
@@ -32,7 +58,7 @@ class Student implements Person {
         this.firstName = firstName;
         this.lastName = lastName;
         this.setDocument(document);
-        this.registration = registration;
+        this.register = registration;
     }
 
     @Override
@@ -40,7 +66,7 @@ class Student implements Person {
         return document;
     }
 
-    public final void setDocument(String document) throws InvalidStateException {
+    public void setDocument(String document) throws InvalidStateException {
         new CPFValidator(new SimpleMessageProducer(), false, false).assertValid(document);
         this.document = document;
     }
@@ -64,19 +90,19 @@ class Student implements Person {
     }
 
     public String getRegistration() {
-        return registration;
+        return register;
     }
 
     public void setRegistration(String registration) {
-        this.registration = registration;
+        this.register = registration;
+    }
+    
+    public Set<Fingerprint> getFingerprintList() {
+        return fingerprint;
     }
 
-    public byte[] getFingerprintData() {
-        return fingerprintData;
-    }
-
-    public void setFingerprintData(byte[] fingerprintData) {
-        this.fingerprintData = fingerprintData;
+    public boolean addFingerprint(Fingerprint fingerprint) {
+        return this.fingerprint.add(fingerprint);
     }
 
     @Override
@@ -95,6 +121,11 @@ class Student implements Person {
     @Override
     public int hashCode() {
         return document.hashCode();
-    }   
+    }
+
+    @Override
+    public int compareTo(Student otherStudent) {
+        return this.document.compareTo(otherStudent.getDocument());
+    }
     
 }

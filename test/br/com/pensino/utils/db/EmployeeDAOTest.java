@@ -19,6 +19,7 @@ import static org.junit.Assert.*;
  * @author emiliowl
  */
 public class EmployeeDAOTest {
+    public static final String CPF = "37374688857";
 
     @Test
     public void shouldRetrieveAllEmployeesFromDataBase() {
@@ -39,13 +40,13 @@ public class EmployeeDAOTest {
 
     @Test
     public void shouldCreateNewEmployee() {
-        Employee employee = new Employee("John", "Rambo", "123456789", "006680594", Employee.Function.PROFESSOR);
+        Employee employee = new Employee("John", "Rambo", CPF, "006680594", Employee.Function.PROFESSOR);
         assertTrue(new EmployeeDAO().save(employee));
     }
     
     @Test
     public void shouldRetrieveEmployeeByCriteria() {
-        Employee employee = new EmployeeDAO().find(By.DOCUMENT, "123456789").get(0);
+        Employee employee = new EmployeeDAO().find(By.DOCUMENT, CPF).get(0);
         employee.getFirstName().equals("John");
     }
 
