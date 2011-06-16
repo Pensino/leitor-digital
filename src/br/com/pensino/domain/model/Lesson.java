@@ -4,11 +4,11 @@
  */
 package br.com.pensino.domain.model;
 
-import br.com.pensino.domain.model.Employee.Function;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  *
@@ -16,20 +16,18 @@ import java.util.List;
  */
 class Lesson {
 
-    private Employee professor;
-    private Discipline discipline;
+    private ExpedientTimeTable expedientTimeTable;
     private Boolean started;
     private Date lessonDate;
     private Date startTime;
     private Date endTime;
-    private List<Student> presents = new ArrayList<Student>();
+    private Set<Student> presents = new TreeSet<Student>();
 
-    public Lesson(Employee professor, Discipline discipline) {
-        if (!professor.getFunction().equals(Function.PROFESSOR)) {
-            throw new IllegalArgumentException("Somente um professor pode criar uma aula.");
-        }
-        this.professor = professor;
-        this.discipline = discipline;
+    public Lesson(ExpedientTimeTable expedientTimeTable, Date lessonDate, Date startTime, Date endTime) {
+        this.expedientTimeTable = expedientTimeTable;
+        this.lessonDate = lessonDate;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public void start() {
@@ -48,14 +46,6 @@ class Lesson {
         return this.presents.contains(student);
     }
 
-    public Discipline getDiscipline() {
-        return discipline;
-    }
-
-    public void setDiscipline(Discipline discipline) {
-        this.discipline = discipline;
-    }
-
     public Date getLessonDate() {
         return lessonDate;
     }
@@ -64,20 +54,12 @@ class Lesson {
         this.lessonDate = lessonDate;
     }
 
-    public List<Student> getPresents() {
+    public Set<Student> getPresents() {
         return presents;
     }
 
-    public void setPresents(List<Student> presents) {
+    public void setPresents(Set<Student> presents) {
         this.presents = presents;
-    }
-
-    public Employee getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Employee professor) {
-        this.professor = professor;
     }
 
     public Boolean isStarted() {

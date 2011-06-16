@@ -15,28 +15,28 @@ import static org.junit.Assert.*;
  * @author emiliowl
  */
 public class LessonTest {
-    public static final String CPF = "37374688857";
 
+    public static final String CPF = "37374688857";
     private Employee professor = new Employee("prof", "giraffales", CPF, "006970594", Function.PROFESSOR);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     private Employee coordinator = new Employee("Jhon", "Rambo", CPF, "007111", Function.COORDENADOR);
-
-    @Test(expected = IllegalArgumentException.class)
-    public void shouldNotStartClassWithEmployeeNotProfessor() {
-        new Lesson(coordinator, discipline);
-    }
+    private Course course = new Course("ingles", "go go go", "bla", 1);
+    private Grid grid = new Grid(course, discipline);
+    private TimeTable timeTable = new TimeTable(professor, grid);
+    private ExpedientTimeTable expedientTimeTable = new ExpedientTimeTable(timeTable);
+    private Student student1 = new Student("aluno", "sob_aluno", "37374688857", "09884");
+    private Student student2 = new Student("aluno2", "sob_aluno2", "62221666283", "09884");
 
     @Test
     public void shouldStartKlass() {
-        //TODO: review english words and sentences
-        Lesson lesson = new Lesson(professor, discipline);
+        Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         lesson.start();
         assertTrue(lesson.isStarted());
     }
 
     @Test
     public void shouldFinishKlass() {
-        Lesson lesson = new Lesson(professor, discipline);
+        Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         lesson.start();
         lesson.finish();
         assertFalse(lesson.isStarted());
@@ -44,7 +44,7 @@ public class LessonTest {
 
     @Test
     public void shouldRecordPresence() {
-        Lesson lesson = new Lesson(professor, discipline);
+        Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         lesson.start();
 
         Student student = new Student("Robert", "Downey Jr.", CPF, "091111");
@@ -55,7 +55,7 @@ public class LessonTest {
 
     @Test
     public void shouldReturnFormatedDataAsHHMM() {
-        Lesson lesson = new Lesson(professor, discipline);
+        Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         Date now = new Date();
         lesson.setStartTime(now);
         lesson.setEndTime(now);

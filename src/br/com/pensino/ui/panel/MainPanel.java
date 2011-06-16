@@ -10,39 +10,48 @@
  */
 package br.com.pensino.ui.panel;
 
+import br.com.pensino.domain.model.Employee;
 import br.com.pensino.ui.components.ClassStartPanel;
+import br.com.pensino.utils.db.EmployeeDAO;
+import br.com.pensino.utils.db.StudentDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import br.com.pensino.utils.message.By;
 import br.com.pensino.utils.message.MessageService;
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import javax.swing.Icon;
+import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 /**
- *
+ *lateData
  * @author emiliowl
  */
 public class MainPanel extends JPanel implements FingerprintEngineObserver {
 
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
+    private StudentDAO studentDAO;
+    private EmployeeDAO employeeDAO;
     private JPanel middlePanel = null;
     private Boolean aulaIniciada = false;
     private static JLabel messageLabel = new JLabel(MessageService.getMessage(By.name("msg001")));
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
-    public MainPanel() {
+    public MainPanel(EmployeeDAO employeeDAO, StudentDAO studentDAO) {
         initComponents();
+        //initializing the fingerprint matcher engine
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintEngine.startObserve(this);
         fingerprintContentPanel.add(fingerprintPanel);
+        //initializing the DAO objects
+        this.employeeDAO = employeeDAO;
+        this.studentDAO = studentDAO;
+        //loading the class panel that shows user information
         middlePanel = new ClassStartPanel();
+        //setting layout components
         this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
         this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
         this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
@@ -133,11 +142,8 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
     public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
         if (!aulaIniciada) {
             try {
-                FileInputStream fis = new FileInputStream("objeto1.ser");
-                ObjectInputStream ois = new ObjectInputStream(fis);
-                byte[] byteArray = (byte[]) ois.readObject();
-                MainPanel.setProgressStatus(100);
-                if (fingerprintEngine.checkFingerprint(byteArray)) {
+                List<Employee> professors = employeeDAO.all();                
+                if (fingerprintEngine.checkFingerprint(templateData)) {
                     aulaIniciada = true;
                     messageUpdater("msg002");
                     messageUpdater("msg005");

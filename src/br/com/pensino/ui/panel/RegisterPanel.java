@@ -37,9 +37,9 @@ import javax.swing.JProgressBar;
  */
 public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
 
-    EmployeeDAO employeeDAO = new EmployeeDAO();
-    FingerprintDAO fingerprintDAO = new FingerprintDAO();
-    StudentDAO studentDAO = new StudentDAO();
+    EmployeeDAO employeeDAO;
+    FingerprintDAO fingerprintDAO;
+    StudentDAO studentDAO;
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private MiddleRegisterPanel middlePanel = null;
@@ -47,12 +47,19 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
-    public RegisterPanel() {
+    public RegisterPanel(EmployeeDAO employeeDAO, StudentDAO studentDAO, FingerprintDAO fingerprintDAO) {
         initComponents();
+        //initializing fingerprint matcher engine
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintEngine.startObserve(this);
         fingerprintContentPanel.add(fingerprintPanel);
+        //initializing the DAO objects
+        this.employeeDAO = employeeDAO;
+        this.studentDAO = studentDAO;
+        this.fingerprintDAO = fingerprintDAO;
+        //initializing central panel thus contains the employees and students to user selection
         middlePanel = new MiddleRegisterPanel(employeeDAO, studentDAO);
+        //defining style of the screen elements
         this.add(middlePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 325, -1, -1));
         this.add(messageLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
         this.add(progressBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, -1, -1));
