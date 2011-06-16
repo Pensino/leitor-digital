@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author emiliowl
  */
-class Course implements Serializable, Comparable<Course> {
+public class Course implements Serializable, Comparable<Course> {
 
     private String name;
     private String description;

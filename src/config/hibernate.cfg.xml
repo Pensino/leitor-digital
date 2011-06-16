@@ -13,5 +13,7 @@
         <mapping class="br.com.pensino.domain.model.Fingerprint"></mapping>
         <mapping class="br.com.pensino.domain.model.Employee"></mapping>
         <mapping class="br.com.pensino.domain.model.Student"></mapping>
+        <mapping class="br.com.pensino.domain.model.Lesson"></mapping>
+        <mapping class="br.com.pensino.domain.model.ExpedientTimeTable"></mapping>
     </session-factory>
 </hibernate-configuration>

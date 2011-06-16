@@ -8,7 +8,7 @@ package br.com.pensino.domain.model;
  *
  * @author emiliowl
  */
-class TimeTable {
+public class TimeTable {
 
     Employee professor;
     Grid grid;

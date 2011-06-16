@@ -8,7 +8,7 @@ package br.com.pensino.domain.model;
  *
  * @author emiliowl
  */
-class ExpedientTimeTable {
+public class ExpedientTimeTable {
 
     private TimeTable timeTable;
 

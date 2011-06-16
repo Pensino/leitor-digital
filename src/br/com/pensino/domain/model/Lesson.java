@@ -4,23 +4,44 @@
  */
 package br.com.pensino.domain.model;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author emiliowl
  */
-class Lesson {
+@Entity
+@Table(name = "lessons")
+public class Lesson implements Serializable {
 
+    @Id
+    @GeneratedValue
+    Integer id;
+    @ManyToOne
+    @Column(name = "expedient_time_tables")
     private ExpedientTimeTable expedientTimeTable;
     private Boolean started;
+    @Temporal(TemporalType.DATE)
     private Date lessonDate;
+    @Temporal(TemporalType.TIME)
     private Date startTime;
+    @Temporal(TemporalType.TIME)
     private Date endTime;
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Student> presents = new TreeSet<Student>();
 
     public Lesson(ExpedientTimeTable expedientTimeTable, Date lessonDate, Date startTime, Date endTime) {
@@ -28,6 +49,10 @@ class Lesson {
         this.lessonDate = lessonDate;
         this.startTime = startTime;
         this.endTime = endTime;
+    }
+
+    //for hibernate usage only
+    protected Lesson() {
     }
 
     public void start() {

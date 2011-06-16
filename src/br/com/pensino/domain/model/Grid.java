@@ -8,7 +8,7 @@ package br.com.pensino.domain.model;
  *
  * @author emiliowl
  */
-class Grid {
+public class Grid {
 
     private Course course;
     private Discipline discipline;

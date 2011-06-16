@@ -10,14 +10,14 @@ import java.io.Serializable;
  *
  * @author emiliowl
  */
-class Discipline implements Serializable, Comparable<Discipline> {
+public class Discipline implements Serializable, Comparable<Discipline> {
 
     private int id;
     private String name;
     private String description;
     private Integer quantityLesson;
 
-    Discipline(String name, String description, int quantityLesson) {
+    public Discipline(String name, String description, int quantityLesson) {
         if (name == null || name.trim().equals("")) {
             throw new IllegalArgumentException("Disciplina deve possuir um nome");
         }
