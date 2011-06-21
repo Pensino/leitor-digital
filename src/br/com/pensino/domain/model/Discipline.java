@@ -5,18 +5,31 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author emiliowl
  */
+@Entity
+@Table(name="matters")
 public class Discipline implements Serializable, Comparable<Discipline> {
 
+    @Id
+    @GeneratedValue
     private int id;
     private String name;
     private String description;
     private Integer quantityLesson;
 
+    //hibernate usage only
+    protected Discipline() {
+        super();
+    }
+    
     public Discipline(String name, String description, int quantityLesson) {
         if (name == null || name.trim().equals("")) {
             throw new IllegalArgumentException("Disciplina deve possuir um nome");

@@ -15,5 +15,9 @@
         <mapping class="br.com.pensino.domain.model.Student"></mapping>
         <mapping class="br.com.pensino.domain.model.Lesson"></mapping>
         <mapping class="br.com.pensino.domain.model.ExpedientTimeTable"></mapping>
+        <mapping class="br.com.pensino.domain.model.TimeTable"></mapping>
+        <mapping class="br.com.pensino.domain.model.Grid"></mapping>
+        <mapping class="br.com.pensino.domain.model.Course"></mapping>
+        <mapping class="br.com.pensino.domain.model.Discipline"></mapping>
     </session-factory>
 </hibernate-configuration>

@@ -10,6 +10,7 @@ import br.com.caelum.stella.validation.InvalidStateException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.*;
 
 /**
@@ -27,13 +28,13 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
     private String firstName = "";
     @Column(name = "last_name")
     private String lastName = "";
-    @Column(unique=true)
+    @Column(unique = true)
     private String document = "";
-    @Column(name = "registration", unique=true)
+    @Column(name = "registration", unique = true)
     private String register = "";
     private Boolean professor = false;
     private Boolean coordinator = false;
-    @OneToMany(cascade= CascadeType.REMOVE, fetch= FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Fingerprint> fingerprint = new HashSet<Fingerprint>();
 
     public Employee(String firstName, String lastName, String document, String register, Function function) {
@@ -83,10 +84,10 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
     public int compareTo(Employee o) {
         return document.compareTo(o.getDocument());
     }
-    
+
     @Override
     public String toString() {
-        return firstName + " " + lastName + " [" + document + "]"; 
+        return firstName + " " + lastName + " [" + document + "]";
     }
 
     public enum Function {

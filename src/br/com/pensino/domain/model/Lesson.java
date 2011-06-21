@@ -32,7 +32,6 @@ public class Lesson implements Serializable {
     @GeneratedValue
     Integer id;
     @ManyToOne
-    @Column(name = "expedient_time_tables")
     private ExpedientTimeTable expedientTimeTable;
     private Boolean started;
     @Temporal(TemporalType.DATE)

@@ -37,7 +37,6 @@ class LessonDAO implements DataAccessObject<Lesson> {
     @Override
     public boolean save(Lesson lesson) {
         try {
-            boolean result;
             Transaction tx = session.beginTransaction();
             session.saveOrUpdate(lesson);
             tx.commit();
