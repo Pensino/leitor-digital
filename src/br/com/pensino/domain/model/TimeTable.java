@@ -17,16 +17,18 @@ import javax.persistence.Table;
  * @author emiliowl
  */
 @Entity
-@Table(name = "time_table")
+@Table(name = "time_tables")
 public class TimeTable implements Serializable {
 
     @Id
     @GeneratedValue
     private int id;
     @ManyToOne
-    Employee professor;
+    Employee employee;
     @OneToOne
     Grid grid;
+    @OneToOne (mappedBy="timeTable")
+    ExpedientTimeTable expedientTimeTable;
 
     //hibernate usage only
     protected TimeTable() {
@@ -39,7 +41,7 @@ public class TimeTable implements Serializable {
         } else if (professor.getFunction() != Employee.Function.PROFESSOR) {
             throw new IllegalArgumentException("Cannot construct TimeTable with Employee not professor.");
         }
-        this.professor = professor;
+        this.employee = professor;
         this.grid = grid;
     }
 }

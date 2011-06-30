@@ -5,10 +5,12 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,7 +24,8 @@ public class ExpedientTimeTable implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    @ManyToOne
+    @OneToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name="time_table_id")
     private TimeTable timeTable;
 
     //for hibernate usage only

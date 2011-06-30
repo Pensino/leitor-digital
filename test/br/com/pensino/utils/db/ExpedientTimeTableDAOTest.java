@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 public class ExpedientTimeTableDAOTest {
 
     public static final String CPF = "37374688857";
-    private Employee professor = new Employee("prof", "giraffales", CPF, "006970594", Function.PROFESSOR);
+    private Employee professor = new Employee("John", "Rambo", CPF, "006680594", Employee.Function.PROFESSOR);;
     Course course = new Course("ingles", "go go go", "bla", 1);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     Grid grid = new Grid(course, discipline);
@@ -31,6 +31,9 @@ public class ExpedientTimeTableDAOTest {
     public void shouldSaveExpedientTimeTableToDB() {
         ExpedientTimeTableDAO expedientTimeTableDAO = new ExpedientTimeTableDAO();
         ExpedientTimeTable expedientTimeTable = new ExpedientTimeTable(timeTable);
+        EmployeeDAO dao = new EmployeeDAO();
+        GridDAO gridDAO = new GridDAO();
+        dao.save(professor);
         assertTrue(expedientTimeTableDAO.save(expedientTimeTable));
     }
 }

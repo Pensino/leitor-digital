@@ -10,7 +10,6 @@ import br.com.caelum.stella.validation.InvalidStateException;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 import javax.persistence.*;
 
 /**
