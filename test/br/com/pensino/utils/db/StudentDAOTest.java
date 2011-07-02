@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  * @author emiliowl
  */
 public class StudentDAOTest {
-    public static final String CPF = "37374688857";
+    public static final String CPF = "60265139490";
 
     @Test
     public void shouldRetrieveAllStudentsFromDataBase() {

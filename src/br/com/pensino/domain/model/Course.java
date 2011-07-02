@@ -5,7 +5,6 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -20,12 +19,18 @@ import javax.persistence.Table;
 @Table(name = "courses")
 public class Course implements Serializable, Comparable<Course> {
 
+    public static class Category {
+        public static final int SEMANAL = 1;
+        public static final int BIMESTRAL = 2;
+        public static final int SEMESTRAL = 3;
+    }
+    
     @Id
     @GeneratedValue
     private int id;
     private String name;
     private String description;
-    private String category;
+    private Integer category;
     private int steps;
     @ManyToOne
     private Employee employee;
@@ -34,10 +39,10 @@ public class Course implements Serializable, Comparable<Course> {
         super();
     }
 
-    public Course(String name, String description, String category, int steps) {
+    public Course(String name, String description, Integer category, int steps) {
         if (name == null || name.equals("")) {
             throw new IllegalArgumentException("Curso precisa ter um nome");
-        } else if (category == null || category.equals("")) {
+        } else if (category == null) {
             throw new IllegalArgumentException("Curso deve ter uma categoria");
         } else if (steps <= 0) {
             throw new IllegalArgumentException("Curso deve possuir uma grade");
@@ -69,7 +74,7 @@ public class Course implements Serializable, Comparable<Course> {
     }
 
     public String getCategory() {
-        return category;
+        return category.toString();
     }
 
     public String getDescription() {
@@ -84,7 +89,7 @@ public class Course implements Serializable, Comparable<Course> {
         return steps;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Integer category) {
         this.category = category;
     }
 

@@ -17,7 +17,7 @@ public class TimeTableTest {
     public static final String CPF = "37374688857";
     private Employee professor = new Employee("prof", "giraffales", CPF, "006970594", Function.PROFESSOR);
     private Employee coordinator = new Employee("Jhon", "Rambo", CPF, "007111", Function.COORDENADOR);
-    Course course = new Course("ingles", "go go go", "bla", 1);
+    Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     Grid grid = new Grid(course, discipline);
 

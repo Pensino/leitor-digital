@@ -20,7 +20,7 @@ public class LessonTest {
     private Employee professor = new Employee("prof", "giraffales", CPF, "006970594", Function.PROFESSOR);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     private Employee coordinator = new Employee("Jhon", "Rambo", CPF, "007111", Function.COORDENADOR);
-    private Course course = new Course("ingles", "go go go", "bla", 1);
+    private Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
     private Grid grid = new Grid(course, discipline);
     private TimeTable timeTable = new TimeTable(professor, grid);
     private ExpedientTimeTable expedientTimeTable = new ExpedientTimeTable(timeTable);
@@ -39,7 +39,7 @@ public class LessonTest {
         Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         lesson.start();
         lesson.finish();
-        assertFalse(lesson.isStarted());
+        assertTrue(lesson.isFinished());
     }
 
     @Test
@@ -62,5 +62,12 @@ public class LessonTest {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
         assertTrue(sdf.format(now).equals(lesson.getStartTimeFormated()));
         assertTrue(sdf.format(now).equals(lesson.getEndTimeFormated()));
+    }
+
+    @Test
+    public void shouldReturnLessonsProfessor() {
+        Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
+        assertNotNull(lesson.getProfessor());
+        assertTrue(expedientTimeTable.getProfessor().equals(professor));
     }
 }

@@ -5,6 +5,7 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,9 +24,9 @@ public class TimeTable implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.ALL)
     Employee employee;
-    @OneToOne
+    @OneToOne(cascade= CascadeType.ALL)
     Grid grid;
     @OneToOne (mappedBy="timeTable")
     ExpedientTimeTable expedientTimeTable;
@@ -43,5 +44,9 @@ public class TimeTable implements Serializable {
         }
         this.employee = professor;
         this.grid = grid;
+    }
+    
+    public Employee getProfessor() {
+        return this.employee;
     }
 }

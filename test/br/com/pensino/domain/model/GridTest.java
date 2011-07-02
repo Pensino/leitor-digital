@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class GridTest {
 
-    private Course course = new Course("ingles", "go go go", "bla", 1);
+    private Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
 
     @Test

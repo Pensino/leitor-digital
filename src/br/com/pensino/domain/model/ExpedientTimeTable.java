@@ -36,4 +36,8 @@ public class ExpedientTimeTable implements Serializable {
     public ExpedientTimeTable(TimeTable timeTable) {
         this.timeTable = timeTable;
     }
+    
+    public Employee getProfessor() {
+        return this.timeTable.getProfessor();
+    }
 }

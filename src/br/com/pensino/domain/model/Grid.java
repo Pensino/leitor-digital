@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -22,8 +24,10 @@ public class Grid implements Serializable {
     @Id
     @GeneratedValue
     private int id;
+    @Cascade(CascadeType.ALL)
     @ManyToOne
     private Course course;
+    @Cascade(CascadeType.ALL)
     @ManyToOne
     private Discipline discipline;
 
@@ -35,5 +39,13 @@ public class Grid implements Serializable {
     public Grid(Course course, Discipline discipline) {
         this.course = course;
         this.discipline = discipline;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public Discipline getDiscipline() {
+        return discipline;
     }
 }

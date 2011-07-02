@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -30,16 +31,17 @@ public class Lesson implements Serializable {
     @Id
     @GeneratedValue
     Integer id;
-    @ManyToOne
+    @ManyToOne(cascade= CascadeType.ALL)
     private ExpedientTimeTable expedientTimeTable;
-    private Boolean started;
+    private Boolean started = false;
+    private Boolean finished = false;
     @Temporal(TemporalType.DATE)
     private Date lessonDate;
     @Temporal(TemporalType.TIME)
     private Date startTime;
     @Temporal(TemporalType.TIME)
     private Date endTime;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
     private Set<Student> presents = new TreeSet<Student>();
 
     public Lesson(ExpedientTimeTable expedientTimeTable, Date lessonDate, Date startTime, Date endTime) {
@@ -58,7 +60,7 @@ public class Lesson implements Serializable {
     }
 
     public void finish() {
-        this.started = false;
+        this.finished = true;
     }
 
     public void givePresence(Student student) {
@@ -88,6 +90,10 @@ public class Lesson implements Serializable {
     public Boolean isStarted() {
         return started;
     }
+    
+    public Boolean isFinished() {
+        return finished;
+    }
 
     public String getEndTimeFormated() {
         return formatDateTime(endTime);
@@ -111,6 +117,10 @@ public class Lesson implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+    
+    public Employee getProfessor() {
+        return this.expedientTimeTable.getProfessor();
     }
 
     public String formatDateTime(Date dateToFormat) {

@@ -105,7 +105,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
     }
 
     public enum By {
-        ID("id"), FIRST_NAME("first_name"), DOCUMENT("document");
+        ID("id"), FIRST_NAME("firstName"), DOCUMENT("document");
         
         private final String value;
         

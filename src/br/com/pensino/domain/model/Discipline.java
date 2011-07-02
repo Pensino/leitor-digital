@@ -15,7 +15,7 @@ import javax.persistence.Table;
  * @author emiliowl
  */
 @Entity
-@Table(name="matters")
+@Table(name = "matters")
 public class Discipline implements Serializable, Comparable<Discipline> {
 
     @Id
@@ -29,7 +29,7 @@ public class Discipline implements Serializable, Comparable<Discipline> {
     protected Discipline() {
         super();
     }
-    
+
     public Discipline(String name, String description, int quantityLesson) {
         if (name == null || name.trim().equals("")) {
             throw new IllegalArgumentException("Disciplina deve possuir um nome");
@@ -61,5 +61,17 @@ public class Discipline implements Serializable, Comparable<Discipline> {
     @Override
     public int compareTo(Discipline o) {
         return name.compareTo(o.name);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getQuantityLesson() {
+        return quantityLesson;
     }
 }

@@ -15,7 +15,7 @@ public class CoursesTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateCourseWithoutName() {
-        new Course(null, "description", "category", 1);
+        new Course(null, "description", Course.Category.SEMESTRAL, 1);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -25,11 +25,11 @@ public class CoursesTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void shouldNotCreateCourseWithoutStep() {
-        new Course("name", "description", "category", 0);
+        new Course("name", "description", Course.Category.SEMANAL, 0);
     }
 
     @Test
     public void coursesWithSameNameMustBeEquals() {
-        assertTrue(new Course("name", "123", "category", 1).equals(new Course("name", "456", "another category", 2)));
+        assertTrue(new Course("name", "123", Course.Category.BIMESTRAL, 1).equals(new Course("name", "456", Course.Category.SEMANAL, 2)));
     }
 }
