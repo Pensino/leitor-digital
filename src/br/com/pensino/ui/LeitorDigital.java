@@ -13,7 +13,6 @@ package br.com.pensino.ui;
 import br.com.pensino.ui.panel.MainPanel;
 import br.com.pensino.ui.panel.RegisterPanel;
 import br.com.pensino.utils.db.EmployeeDAO;
-import br.com.pensino.utils.db.FingerprintDAO;
 import br.com.pensino.utils.db.StudentDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
@@ -45,8 +44,7 @@ public class LeitorDigital extends javax.swing.JFrame {
     //DAO Objects
     private StudentDAO studentDAO = new StudentDAO();
     private EmployeeDAO employeeDAO = new EmployeeDAO();
-    private FingerprintDAO fingerprintDAO = new FingerprintDAO();
-    
+        
     /** Creates new form LeitorDigital */
     private LeitorDigital() {
         initComponents();
@@ -92,7 +90,7 @@ public class LeitorDigital extends javax.swing.JFrame {
     
     private JPanel registerPanel() {
         if(registerPanel == null) {
-            registerPanel = new RegisterPanel(employeeDAO, studentDAO, fingerprintDAO);
+            registerPanel = new RegisterPanel(employeeDAO, studentDAO);
         }
         return registerPanel;
     }

@@ -38,7 +38,7 @@ public class Student implements Person, Comparable<Student>, Serializable {
     private String document = "";
     @Column(name = "registration", unique=true)
     private String register = "";
-    @OneToMany(cascade= CascadeType.REMOVE, fetch= FetchType.EAGER)
+    @OneToMany(cascade= CascadeType.ALL, fetch= FetchType.EAGER)
     private Set<Fingerprint> fingerprint = new HashSet<Fingerprint>();
     
     //for hibernate usage only

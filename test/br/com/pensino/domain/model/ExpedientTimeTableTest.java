@@ -4,6 +4,10 @@
  */
 package br.com.pensino.domain.model;
 
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+import org.junit.Before;
 import br.com.pensino.domain.model.Employee.Function;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -18,8 +22,18 @@ public class ExpedientTimeTableTest {
     private Employee professor = new Employee("prof", "giraffales", CPF, "006970594", Function.PROFESSOR);
     Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
+    private Student zezinho = new Student("Zezinho", "sob_aluno", "37808298867", "09884");
+    private Student huguinho = new Student("Huguinho", "sob_aluno2", "62221666283", "09884");
     Grid grid = new Grid(course, discipline);
-    private TimeTable timeTable = new TimeTable(professor, grid);
+    Set<Student> enrolledStudents = new TreeSet<Student>();
+    private TimeTable timeTable;
+    
+    @Before
+    public void start() {
+        enrolledStudents.add(zezinho);
+        enrolledStudents.add(huguinho);
+        timeTable = new TimeTable(professor, grid, enrolledStudents);
+    }
 
     @Test
     public void shouldInstantiateNewExpedientTimeTable() {

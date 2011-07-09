@@ -20,23 +20,13 @@ public class Fingerprint implements Serializable {
     private int id;
     @Column(name = "fingerprint_data")
     private byte[] fingerprintData;
-    @ManyToOne(fetch= FetchType.EAGER)
-    private Employee employee;
-    @ManyToOne(fetch= FetchType.EAGER)
-    private Student student;
     
     public Fingerprint() {
         super();
     }
     
-    public Fingerprint(byte[] fingerprintData, Employee employee) {
+    public Fingerprint(byte[] fingerprintData) {
         this.fingerprintData = fingerprintData;
-        this.employee = employee;
-    }
-    
-    public Fingerprint(byte[] fingerprintData, Student student) {
-        this.fingerprintData = fingerprintData;
-        this.student = student;
     }
     
     public byte[] getFingerprintData() {

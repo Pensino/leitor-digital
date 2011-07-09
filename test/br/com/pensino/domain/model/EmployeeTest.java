@@ -51,7 +51,7 @@ public class EmployeeTest {
         FileInputStream fis = new FileInputStream(file.getAbsolutePath());
         ObjectInputStream ois = new ObjectInputStream(fis);
         byte[] fingerprintData = (byte[]) ois.readObject();
-        Fingerprint fingerprintOne = new Fingerprint(fingerprintData, emilio);
+        Fingerprint fingerprintOne = new Fingerprint(fingerprintData);
         emilio.addFingerprint(fingerprintOne);
         assertTrue(emilio.getFingerprintList().size() == 1);
     }

@@ -42,7 +42,8 @@ public class Lesson implements Serializable {
     @Temporal(TemporalType.TIME)
     private Date endTime;
     @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
-    private Set<Student> presents = new TreeSet<Student>();
+    private Set<Student> absent = new TreeSet<Student>();
+    
 
     public Lesson(ExpedientTimeTable expedientTimeTable, Date lessonDate, Date startTime, Date endTime) {
         this.expedientTimeTable = expedientTimeTable;
@@ -57,6 +58,7 @@ public class Lesson implements Serializable {
 
     public void start() {
         this.started = true;
+        this.absent = getEnrolled();
     }
 
     public void finish() {
@@ -64,11 +66,15 @@ public class Lesson implements Serializable {
     }
 
     public void givePresence(Student student) {
-        this.presents.add(student);
+        if (getEnrolled().contains(student)) {
+            this.absent.remove(student);
+        } else {
+            throw new NotEnrolledStudentException();
+        }
     }
 
-    public Boolean isPresent(Student student) {
-        return this.presents.contains(student);
+    public Boolean isAbsent(Student student) {
+        return this.absent.contains(student);
     }
 
     public Date getLessonDate() {
@@ -79,12 +85,8 @@ public class Lesson implements Serializable {
         this.lessonDate = lessonDate;
     }
 
-    public Set<Student> getPresents() {
-        return presents;
-    }
-
-    public void setPresents(Set<Student> presents) {
-        this.presents = presents;
+    public Set<Student> getAbsent() {
+        return absent;
     }
 
     public Boolean isStarted() {
@@ -126,5 +128,9 @@ public class Lesson implements Serializable {
     public String formatDateTime(Date dateToFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat("HH:MM");
         return sdf.format(dateToFormat);
+    }
+    
+    public Set<Student> getEnrolled() {       
+        return expedientTimeTable.getEnrolled();
     }
 }

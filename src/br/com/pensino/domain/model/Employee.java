@@ -33,7 +33,7 @@ public class Employee implements Serializable, Comparable<Employee>, Person {
     private String register = "";
     private Boolean professor = false;
     private Boolean coordinator = false;
-    @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Fingerprint> fingerprint = new HashSet<Fingerprint>();
 
     public Employee(String firstName, String lastName, String document, String register, Function function) {

@@ -58,9 +58,8 @@ public class EmployeeDAOTest {
         FileInputStream fis = new FileInputStream(file.getAbsolutePath());
         ObjectInputStream ois = new ObjectInputStream(fis);
         byte[] fingerprintData = (byte[]) ois.readObject();
-        Fingerprint fingerprint = new Fingerprint(fingerprintData, employee);
-        employee.addFingerprint(fingerprint);
-        assertTrue(new FingerprintDAO().save(fingerprint));        
+        Fingerprint fingerprint = new Fingerprint(fingerprintData);
+        employee.addFingerprint(fingerprint);  
         assertTrue(employeeDAO.save(employee));        
     }
 }

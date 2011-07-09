@@ -5,6 +5,7 @@
 package br.com.pensino.domain.model;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,5 +40,9 @@ public class ExpedientTimeTable implements Serializable {
     
     public Employee getProfessor() {
         return this.timeTable.getProfessor();
+    }
+    
+    public Set<Student> getEnrolled() {
+        return timeTable.getEnrolled();
     }
 }

@@ -29,6 +29,12 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         session = pensinoDAO.openSession();
     }
 
+    public boolean destroy() {
+        session.clear();
+        session.close();
+        return true;
+    }
+
     @Override
     public List<Employee> all() {
         try {
@@ -71,7 +77,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         }
     }
 
-    public List<Employee> find(By criteria, String value){
+    public List<Employee> find(By criteria, String value) {
         try {
             Transaction tx = session.beginTransaction();
             List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like(criteria.getValue(), value, MatchMode.ANYWHERE)).list();
@@ -96,7 +102,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
             return false;
         }
     }
-    
+
     public void clearCollection(Collection<Employee> collection) {
         Set<Employee> cleanerSet = new TreeSet<Employee>();
         cleanerSet.addAll(collection);
@@ -105,14 +111,14 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
     }
 
     public enum By {
+
         ID("id"), FIRST_NAME("firstName"), DOCUMENT("document");
-        
         private final String value;
-        
+
         public String getValue() {
             return this.value;
         }
-        
+
         By(String value) {
             this.value = value;
         }

@@ -36,9 +36,9 @@ public class StudentTest {
     FileInputStream fis = new FileInputStream(file.getAbsolutePath());
     ObjectInputStream ois = new ObjectInputStream(fis);
     byte[] fingerprintData = (byte[])ois.readObject();
-    Fingerprint fingerprint = new Fingerprint(fingerprintData, jow);
+    Fingerprint fingerprint = new Fingerprint(fingerprintData);
     jow.addFingerprint(fingerprint);
-    Fingerprint fingerprint2 = new Fingerprint(fingerprintData, jow);
+    Fingerprint fingerprint2 = new Fingerprint(fingerprintData);
     jow.addFingerprint(fingerprint2);
     assertTrue(jow.getFingerprintList().contains(fingerprint));
     assertTrue(jow.getFingerprintList().contains(fingerprint2));

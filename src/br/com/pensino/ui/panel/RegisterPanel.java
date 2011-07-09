@@ -19,7 +19,6 @@ import br.com.pensino.ui.exception.EmployeeNotFoundException;
 import br.com.pensino.ui.exception.PersonNotFoundException;
 import br.com.pensino.ui.exception.StudentNotFoundException;
 import br.com.pensino.utils.db.EmployeeDAO;
-import br.com.pensino.utils.db.FingerprintDAO;
 import br.com.pensino.utils.db.StudentDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
@@ -38,8 +37,7 @@ import javax.swing.JProgressBar;
 public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
 
     EmployeeDAO employeeDAO;
-    FingerprintDAO fingerprintDAO;
-    StudentDAO studentDAO;
+        StudentDAO studentDAO;
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private MiddleRegisterPanel middlePanel = null;
@@ -47,7 +45,7 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
     private static JProgressBar progressBar = new JProgressBar();
 
     /** Creates new form MainPanel */
-    public RegisterPanel(EmployeeDAO employeeDAO, StudentDAO studentDAO, FingerprintDAO fingerprintDAO) {
+    public RegisterPanel(EmployeeDAO employeeDAO, StudentDAO studentDAO) {
         initComponents();
         //initializing fingerprint matcher engine
         fingerprintEngine.startObserve(fingerprintPanel);
@@ -56,7 +54,6 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
         //initializing the DAO objects
         this.employeeDAO = employeeDAO;
         this.studentDAO = studentDAO;
-        this.fingerprintDAO = fingerprintDAO;
         //initializing central panel thus contains the employees and students to user selection
         middlePanel = new MiddleRegisterPanel(employeeDAO, studentDAO);
         //defining style of the screen elements
@@ -165,9 +162,8 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
             }
             if (person instanceof Employee) {
                 Employee employee = (Employee) person;
-                Fingerprint fingerprint = new Fingerprint(templateData, employee);
+                Fingerprint fingerprint = new Fingerprint(templateData);
                 employee.addFingerprint(fingerprint);
-                fingerprintDAO.save(fingerprint);
                 if (employeeDAO.save(employee)) {
                     messageUpdater("msg009");
                     RegisterPanel.setProgressStatus(100);
@@ -175,9 +171,8 @@ public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
                 }
             } else if (person instanceof Student) {
                 Student student = (Student) person;
-                Fingerprint fingerprint = new Fingerprint(templateData, student);
+                Fingerprint fingerprint = new Fingerprint(templateData);
                 student.addFingerprint(fingerprint);
-                fingerprintDAO.save(fingerprint);
                 if (studentDAO.save(student)) {
                     messageUpdater("msg009");
                     RegisterPanel.setProgressStatus(100);
