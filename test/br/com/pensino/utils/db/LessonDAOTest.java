@@ -53,8 +53,9 @@ public class LessonDAOTest {
     public void shouldSaveLessonToDB() {
         employeeDAO.destroy();
         enrolledStudents.clear();
-        enrolledStudents.add(studentDAO.find(1));
+        Student student = studentDAO.find(1);
         studentDAO.destroy();
+        enrolledStudents.add(student);
         timeTable = new TimeTable(professor, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
         
@@ -70,7 +71,7 @@ public class LessonDAOTest {
 
     @Test
     public void shouldRetrieveLessonFromDB() {
-        Lesson lesson = lessonDAO.find(11);
+        Lesson lesson = lessonDAO.find(1);
         assertNotNull(lesson);
         assertTrue(lesson.getProfessor().equals(professor));
     }
@@ -82,7 +83,7 @@ public class LessonDAOTest {
 
     @Test
     public void shouldInitializeLesson() {
-        Lesson lesson = lessonDAO.find(12);
+        Lesson lesson = lessonDAO.find(1);
         lesson.start();
         lessonDAO.save(lesson);
         assertTrue(lesson.isStarted());
