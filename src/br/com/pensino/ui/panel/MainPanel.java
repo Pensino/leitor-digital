@@ -140,6 +140,15 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
 
     @Override
     public boolean notifyTemplateExtracted(BufferedImage templateImage, byte[] templateData) {
+        /*
+         * 1 - verifica se tem aula iniciada
+         *  1.1 - Não --> procura professor com essa digital.
+         *   1.1.2 - Verifica se o professor tem aula corrente
+         *   1.1.3 - Se tiver carrega esta aula.
+         *   1.1.4 - Verifica se aula está iniciada
+         *   1.1.5 - Se não estiver, inicia a aula
+         *   1.1.6 - Configura aula iniciada em memória
+         */
         if (!aulaIniciada) {
             try {
                 List<Employee> professors = employeeDAO.all();                

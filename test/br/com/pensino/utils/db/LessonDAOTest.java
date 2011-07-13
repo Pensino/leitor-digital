@@ -29,6 +29,7 @@ public class LessonDAOTest {
 
     private LessonDAO lessonDAO = new LessonDAO();
     private EmployeeDAO employeeDAO = new EmployeeDAO();
+    private StudentDAO studentDAO = new StudentDAO();
     private Employee professor = employeeDAO.find(By.DOCUMENT, "37374688857").get(0);
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     private Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
@@ -51,8 +52,20 @@ public class LessonDAOTest {
     @Test
     public void shouldSaveLessonToDB() {
         employeeDAO.destroy();
+        enrolledStudents.clear();
+        enrolledStudents.add(studentDAO.find(1));
+        studentDAO.destroy();
+        timeTable = new TimeTable(professor, grid, enrolledStudents);
+        expedientTimeTable = new ExpedientTimeTable(timeTable);
+        
         Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
-        assertTrue(lessonDAO.save(lesson));
+        lessonDAO.save(lesson);
+        /*
+        Lesson loadedLesson = lessonDAO.find(1);
+        loadedLesson.start();
+        System.out.println(loadedLesson.getAbsent().toString());
+        */
+        //assertTrue(lessonDAO.save(lesson));
     }
 
     @Test

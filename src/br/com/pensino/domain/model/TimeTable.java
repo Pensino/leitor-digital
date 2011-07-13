@@ -34,7 +34,7 @@ public class TimeTable implements Serializable {
     Grid grid;
     @OneToOne (mappedBy="timeTable")
     ExpedientTimeTable expedientTimeTable;
-    @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL, targetEntity=Enrollment.class)
+    @ManyToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
     Set<Student> enrollments = new TreeSet<Student>();
     
     //hibernate usage only

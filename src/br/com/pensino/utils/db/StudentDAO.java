@@ -117,4 +117,10 @@ public class StudentDAO implements DataAccessObject<Student> {
             this.value = value;
         }
     }
+    
+    public boolean destroy() {
+        session.clear();
+        session.close();
+        return true;
+    }
 }
