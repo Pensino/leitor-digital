@@ -5,6 +5,7 @@
  */
 package br.com.pensino.utils.db;
 
+import br.com.pensino.domain.model.Enrollment;
 import java.util.Set;
 import br.com.pensino.utils.db.EmployeeDAO.By;
 import java.util.Date;
@@ -35,16 +36,19 @@ public class LessonDAOTest {
     private Course course = new Course("ingles", "go go go", Course.Category.BIMESTRAL, 1);
     private Grid grid = new Grid(course, discipline);
     private TimeTable timeTable;
-    Set<Student> enrolledStudents = new TreeSet<Student>();
+    Set<Enrollment> enrolledStudents = new TreeSet<Enrollment>();
     private Student emilio = new Student("Emilio", "Resende", "37374688857", "071111");
     private Student paulo = new Student("Paulo", "Schiavon", "33166403809", "071112");
+    
+    private Enrollment emilioEnrollment = new Enrollment(emilio);
+    private Enrollment pauloEnrollment = new Enrollment(paulo);
     private ExpedientTimeTable expedientTimeTable;
     
 
     @Before
     public void start() {
-        enrolledStudents.add(emilio);
-        enrolledStudents.add(paulo);
+        enrolledStudents.add(emilioEnrollment);
+        enrolledStudents.add(pauloEnrollment);
         timeTable = new TimeTable(professor, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
     }
@@ -54,25 +58,23 @@ public class LessonDAOTest {
         employeeDAO.destroy();
         enrolledStudents.clear();
         Student student = studentDAO.find(1);
+        
+        Enrollment enrollment = new Enrollment(student.clone());
         studentDAO.destroy();
-        enrolledStudents.add(student);
+        enrolledStudents.add(enrollment);
+        
         timeTable = new TimeTable(professor, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
         
         Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
-        lessonDAO.save(lesson);
-        /*
-        Lesson loadedLesson = lessonDAO.find(1);
-        loadedLesson.start();
-        System.out.println(loadedLesson.getAbsent().toString());
-        */
-        //assertTrue(lessonDAO.save(lesson));
+        assertTrue(lessonDAO.save(lesson));
     }
 
     @Test
     public void shouldRetrieveLessonFromDB() {
         Lesson lesson = lessonDAO.find(1);
         assertNotNull(lesson);
+        System.out.println(lesson.getEnrolled());
         assertTrue(lesson.getProfessor().equals(professor));
     }
 
@@ -94,4 +96,7 @@ public class LessonDAOTest {
         Lesson lesson = lessonDAO.findCurrentLesson(professor);
         assertTrue(lesson.getProfessor().equals(professor));
     }
+    
+    @Test
+            public void should
 }

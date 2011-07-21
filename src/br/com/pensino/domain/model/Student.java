@@ -25,7 +25,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "students")
-public class Student implements Person, Comparable<Student>, Serializable {
+public class Student implements Person, Comparable<Student>, Serializable, Cloneable {
 
     @Id
     @GeneratedValue
@@ -44,6 +44,12 @@ public class Student implements Person, Comparable<Student>, Serializable {
     //for hibernate usage only
     protected Student() {
         super();
+    }
+    
+    public Student(Integer id, Set<Fingerprint> fingerprint, String firstName, String lastName, String document, String registration) {
+        this(firstName, lastName, document, registration);
+        this.id = id;
+        this.fingerprint = fingerprint;
     }
 
     public Student(String firstName, String lastName, String document, String registration) {
@@ -127,5 +133,11 @@ public class Student implements Person, Comparable<Student>, Serializable {
     public int compareTo(Student otherStudent) {
         return this.document.compareTo(otherStudent.getDocument());
     }
-    
+
+    @Override
+    public Student clone() {
+        Student clone = new Student(id, fingerprint, firstName, lastName, document, register);
+        return clone;
+    }
+        
 }

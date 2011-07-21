@@ -119,7 +119,7 @@ public class StudentDAO implements DataAccessObject<Student> {
     }
     
     public boolean destroy() {
-        session.clear();
+        session.flush();
         session.close();
         return true;
     }

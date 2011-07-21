@@ -6,6 +6,7 @@ package br.com.pensino.domain.model;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,6 +44,10 @@ public class ExpedientTimeTable implements Serializable {
     }
     
     public Set<Student> getEnrolled() {
-        return timeTable.getEnrolled();
+        Set<Student> enrolledStudents = new TreeSet<Student>();
+        for(Enrollment enrollment : timeTable.getEnrolled()) {
+            enrolledStudents.add(enrollment.getStudent());
+        }
+        return enrolledStudents;
     }
 }

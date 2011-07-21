@@ -27,15 +27,17 @@ public class LessonTest {
     private Grid grid = new Grid(englishCourse, javaDiscipline);
     private Student zezinho = new Student("Zezinho", "sob_aluno", "37808298867", "09884");
     private Student huguinho = new Student("Huguinho", "sob_aluno2", "62221666283", "09884");
-    private Set<Student> enrolledStudents = new TreeSet<Student>();
+    private Enrollment zezinhoEnrollment = new Enrollment(zezinho);
+    private Enrollment huguinhoEnrollment = new Enrollment(huguinho);
+    private Set<Enrollment> enrolledStudents = new TreeSet<Enrollment>();
     private TimeTable timeTable;
     private ExpedientTimeTable expedientTimeTable;
     private Lesson lessonForTests;
 
     @Before
     public void start() {
-        enrolledStudents.add(zezinho);
-        enrolledStudents.add(huguinho);
+        enrolledStudents.add(zezinhoEnrollment);
+        enrolledStudents.add(huguinhoEnrollment);
         timeTable = new TimeTable(profGiraffales, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
         lessonForTests = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());

@@ -24,13 +24,15 @@ public class TimeTableTest {
     private Discipline discipline = new Discipline("java", "OO programming language", 10);
     private Student zezinho = new Student("Zezinho", "sob_aluno", "37808298867", "09884");
     private Student huguinho = new Student("Huguinho", "sob_aluno2", "62221666283", "09884");
+    private Enrollment zezinhoEnrollment = new Enrollment(zezinho);
+    private Enrollment huguinhoEnrollment = new Enrollment(huguinho);
     Grid grid = new Grid(course, discipline);
-    Set<Student> enrolledStudents = new TreeSet<Student>();
+    Set<Enrollment> enrolledStudents = new TreeSet<Enrollment>();
 
     @Before
     public void start() {
-        enrolledStudents.add(zezinho);
-        enrolledStudents.add(huguinho);
+        enrolledStudents.add(zezinhoEnrollment);
+        enrolledStudents.add(huguinhoEnrollment);
     }
     
     @Test
