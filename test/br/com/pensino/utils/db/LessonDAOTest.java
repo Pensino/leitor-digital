@@ -39,11 +39,9 @@ public class LessonDAOTest {
     Set<Enrollment> enrolledStudents = new TreeSet<Enrollment>();
     private Student emilio = new Student("Emilio", "Resende", "37374688857", "071111");
     private Student paulo = new Student("Paulo", "Schiavon", "33166403809", "071112");
-    
     private Enrollment emilioEnrollment = new Enrollment(emilio);
     private Enrollment pauloEnrollment = new Enrollment(paulo);
     private ExpedientTimeTable expedientTimeTable;
-    
 
     @Before
     public void start() {
@@ -52,20 +50,20 @@ public class LessonDAOTest {
         timeTable = new TimeTable(professor, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
     }
-    
+
     @Test
     public void shouldSaveLessonToDB() {
         employeeDAO.destroy();
         enrolledStudents.clear();
         Student student = studentDAO.find(1);
-        
+
         Enrollment enrollment = new Enrollment(student.clone());
         studentDAO.destroy();
         enrolledStudents.add(enrollment);
-        
+
         timeTable = new TimeTable(professor, grid, enrolledStudents);
         expedientTimeTable = new ExpedientTimeTable(timeTable);
-        
+
         Lesson lesson = new Lesson(expedientTimeTable, new Date(), new Date(), new Date());
         assertTrue(lessonDAO.save(lesson));
     }
@@ -96,7 +94,16 @@ public class LessonDAOTest {
         Lesson lesson = lessonDAO.findCurrentLesson(professor);
         assertTrue(lesson.getProfessor().equals(professor));
     }
-    
+
     @Test
-            public void should
+    public void shouldRecordPresence() {
+        Student student = studentDAO.find(1);
+        Lesson lesson = lessonDAO.findCurrentLesson(professor);
+        lesson.start();
+        lessonDAO.save(lesson);
+        lesson.givePresence(student);
+        lessonDAO.save(lesson);
+        Lesson recoveredLesson = lessonDAO.findCurrentLesson(professor);
+        assertTrue(recoveredLesson.getAbsent().isEmpty());
+    }
 }
