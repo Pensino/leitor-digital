@@ -11,16 +11,23 @@
 package br.com.pensino.ui.panel;
 
 import br.com.pensino.domain.model.Employee;
+import br.com.pensino.domain.model.Fingerprint;
+import br.com.pensino.domain.model.Lesson;
+import br.com.pensino.domain.model.Student;
 import br.com.pensino.ui.components.ClassStartPanel;
 import br.com.pensino.utils.db.EmployeeDAO;
+import br.com.pensino.utils.db.LessonDAO;
 import br.com.pensino.utils.db.StudentDAO;
 import br.com.pensino.utils.fingerPrint.FingerprintEngine;
 import br.com.pensino.utils.fingerPrint.FingerprintEngineObserver;
 import br.com.pensino.utils.message.By;
 import br.com.pensino.utils.message.MessageService;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
@@ -32,10 +39,9 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
 
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
-    private StudentDAO studentDAO;
-    private EmployeeDAO employeeDAO;
+    private LessonDAO lessonDAO = new LessonDAO();
     private JPanel middlePanel = null;
-    private Boolean aulaIniciada = false;
+    private Lesson startedLesson = null;
     private static JLabel messageLabel = new JLabel(MessageService.getMessage(By.name("msg001")));
     private static JProgressBar progressBar = new JProgressBar();
 
@@ -46,9 +52,6 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
         fingerprintEngine.startObserve(fingerprintPanel);
         fingerprintEngine.startObserve(this);
         fingerprintContentPanel.add(fingerprintPanel);
-        //initializing the DAO objects
-        this.employeeDAO = employeeDAO;
-        this.studentDAO = studentDAO;
         //loading the class panel that shows user information
         middlePanel = new ClassStartPanel();
         //setting layout components
@@ -149,24 +152,85 @@ public class MainPanel extends JPanel implements FingerprintEngineObserver {
          *   1.1.5 - Se não estiver, inicia a aula
          *   1.1.6 - Configura aula iniciada em memória
          */
-        if (!aulaIniciada) {
+        if (startedLesson == null) {
             try {
-                List<Employee> professors = employeeDAO.all();                
-                if (fingerprintEngine.checkFingerprint(templateData)) {
-                    aulaIniciada = true;
-                    messageUpdater("msg002");
-                    messageUpdater("msg005");
-                } else {
-                    String beforeIcon = messageLabel.getIcon().toString();
-                    beforeIcon = beforeIcon.substring(beforeIcon.indexOf("msg"), beforeIcon.indexOf("msg") + 6);
-                    messageUpdater("msg004");
-                    messageUpdater(beforeIcon);
+                //Carrega Lista com aulas correntes e dela extra a lista de professores com aulas iniciadas
+                List<Lesson> currentLessons = lessonDAO.findCurrentLessons();
+                List<Employee> professors = new ArrayList<Employee>();
+                for (Lesson currentLesson : currentLessons) {
+                    professors.add(currentLesson.getProfessor());
                 }
+
+                //Verifica se a impressao digital informada pertence a algum professor
+                for (Employee professor : professors) {
+                    //Compara uma a uma das impressões digitais do professor
+                    Set<Fingerprint> fingerprints = professor.getFingerprintList();
+                    for (Fingerprint fingerprint : fingerprints) {
+                        if (fingerprintEngine.checkFingerprint(fingerprint.getFingerprintData())) {
+                            startedLesson = lessonDAO.findCurrentLesson(professor);
+                            startedLesson.start();
+                            lessonDAO.save(startedLesson);
+                            ((ClassStartPanel)middlePanel).setLesson(startedLesson);
+                            MainPanel.setProgressStatus(100);
+                            messageUpdater("msg002");
+                            messageUpdater("msg005");
+                            return true;
+                        }
+                    }
+                }
+                 //Se chegou até aqui não encontrou nenhum professor em aula com uma impressao digital igual a informada
+                String beforeIcon = messageLabel.getIcon().toString();
+                beforeIcon = beforeIcon.substring(beforeIcon.indexOf("msg"), beforeIcon.indexOf("msg") + 6);
+                MainPanel.setProgressStatus(100);
+                messageUpdater("msg004");
+                messageUpdater(beforeIcon);
             } catch (Exception ex) {
                 ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            MainPanel.setProgressStatus(100);
+            try {
+                Set<Student> absentStudents = startedLesson.getAbsent();
+                for (Student student : absentStudents) {
+                    Set<Fingerprint> fingerprints = student.getFingerprintList();
+                    for (Fingerprint fingerprint : fingerprints) {
+                        if (fingerprintEngine.checkFingerprint(fingerprint.getFingerprintData())) {
+                            startedLesson.givePresence(student);
+                            lessonDAO.save(startedLesson);
+                            MainPanel.setProgressStatus(100);
+                            messageUpdater("msg003");
+                            messageUpdater("msg005");
+                            
+                            return true;
+                        }
+                    }
+                }
+                //Verifica se a impressão e do professor. Se for, finaliza a aula.
+                Set<Fingerprint> professorFingerprints = startedLesson.getProfessor().getFingerprintList();
+                for (Fingerprint fingerprint : professorFingerprints) {
+                    if (fingerprintEngine.checkFingerprint(fingerprint.getFingerprintData())) {
+                        startedLesson.finish();
+                        lessonDAO.save(startedLesson);
+                        ((ClassStartPanel)middlePanel).reset();
+                        startedLesson = null;
+                        MainPanel.setProgressStatus(100);
+                        messageUpdater("msg010");
+                        messageUpdater("msg001");
+                        
+                        return true;
+                    }
+                }
+                    
+                //Se chegou até aqui não encontrou nenhum aluno na aula com uma impressao digital igual a informada e a impressao nao era do professor;
+                String beforeIcon = messageLabel.getIcon().toString();
+                beforeIcon = beforeIcon.substring(beforeIcon.indexOf("msg"), beforeIcon.indexOf("msg") + 6);
+                MainPanel.setProgressStatus(100);
+                messageUpdater("msg004");
+                messageUpdater(beforeIcon);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", ERROR);
+            }
         }
         return true;
     }

@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
  *
  * @author emiliowl
  */
-class LessonDAO implements DataAccessObject<Lesson> {
+public class LessonDAO implements DataAccessObject<Lesson> {
 
     PensinoDAO pensinoDAO = PensinoDAO.getInstance();
     Session session;

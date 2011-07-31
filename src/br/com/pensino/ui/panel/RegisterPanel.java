@@ -37,7 +37,7 @@ import javax.swing.JProgressBar;
 public class RegisterPanel extends JPanel implements FingerprintEngineObserver {
 
     EmployeeDAO employeeDAO;
-        StudentDAO studentDAO;
+    StudentDAO studentDAO;
     private FingerprintEngine fingerprintEngine = FingerprintEngine.getInstance();
     private FingerprintPanel fingerprintPanel = new FingerprintPanel();
     private MiddleRegisterPanel middlePanel = null;

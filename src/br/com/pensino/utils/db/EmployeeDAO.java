@@ -40,6 +40,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         try {
             Transaction tx = session.beginTransaction();
             Criteria criteria = session.createCriteria(Employee.class);
+            session.flush();
             List<Employee> employeeList = criteria.list();
             clearCollection(employeeList);
             tx.commit();
@@ -55,6 +56,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         try {
             Transaction tx = session.beginTransaction();
             Employee employee = (Employee) session.load(Employee.class, id);
+            session.flush();
             tx.commit();
             return employee;
         } catch (Exception ex) {
@@ -68,6 +70,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
             Transaction tx = session.beginTransaction();
             List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like("firstName", partOfName, MatchMode.ANYWHERE)).list();
             employeeList.addAll(session.createCriteria(Employee.class).add(Restrictions.like("lastName", partOfName, MatchMode.ANYWHERE)).list());
+            session.flush();
             tx.commit();
             clearCollection(employeeList);
             return employeeList;
@@ -81,6 +84,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         try {
             Transaction tx = session.beginTransaction();
             List<Employee> employeeList = session.createCriteria(Employee.class).add(Restrictions.like(criteria.getValue(), value, MatchMode.ANYWHERE)).list();
+            session.flush();
             tx.commit();
             clearCollection(employeeList);
             return employeeList;
@@ -95,6 +99,7 @@ public class EmployeeDAO implements DataAccessObject<Employee> {
         try {
             Transaction tx = session.beginTransaction();
             session.saveOrUpdate(employee);
+            session.flush();
             tx.commit();
             return true;
         } catch (Exception ex) {

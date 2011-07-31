@@ -63,6 +63,10 @@ public class TimeTable implements Serializable {
         return this.employee;
     }
     
+    public Discipline getDiscipline() {
+        return this.grid.getDiscipline();
+    }
+    
     public Set<Enrollment> getEnrolled() {
         return enrollments;
     }

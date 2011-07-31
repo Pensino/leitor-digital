@@ -43,6 +43,10 @@ public class ExpedientTimeTable implements Serializable {
         return this.timeTable.getProfessor();
     }
     
+    public Discipline getDiscipline() {
+        return this.timeTable.getDiscipline();
+    }
+    
     public Set<Student> getEnrolled() {
         Set<Student> enrolledStudents = new TreeSet<Student>();
         for(Enrollment enrollment : timeTable.getEnrolled()) {

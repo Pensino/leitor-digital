@@ -10,7 +10,9 @@
  */
 package br.com.pensino.ui.components;
 
+import br.com.pensino.domain.model.Lesson;
 import java.awt.GridLayout;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -18,6 +20,21 @@ import java.awt.GridLayout;
  */
 public class ClassStartPanel extends javax.swing.JPanel {
 
+    Lesson currentLesson = null;
+    
+    public void setLesson(Lesson lesson) {
+        currentLesson = lesson;
+        jLabel2.setText(new SimpleDateFormat("dd/MM/yyyy").format(lesson.getStartTime()));
+        jLabel4.setText(lesson.getProfessor().getFirstName());
+        jLabel6.setText(lesson.getDiscipline().getName());
+    }
+    
+    public void reset() {
+        jLabel2.setText("-");
+        jLabel4.setText("-");        
+        jLabel6.setText("-");
+    }
+    
     /** Creates new form ClassStartPanel */
     public ClassStartPanel() {
         initComponents();
